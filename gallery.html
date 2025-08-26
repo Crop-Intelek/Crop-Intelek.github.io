@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CropIntelek – Gallery</title>
+  <meta name="description" content="CropIntelek (Pty) Ltd - Gallery." />
+
+  <!-- Open Graph / SEO (kept from the previous site where relevant) -->
+  <meta property="og:site_name" content="CropIntelek" />
+  <meta property="og:title" content="CropIntelek – Gallery" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cropintelek.com" />
+  <meta property="og:description" content="Timely, accurate and quality research solutions in South Africa." />
+  <meta property="og:image" content="https://static1.squarespace.com/static/620b92d2f949206efdcbe00b/t/620bd79cd847467897e43ea3/1644943260752/CI_Logo_dark+background.png?format=1500w" />
+
+  <link rel="icon" href="https://images.squarespace-cdn.com/content/v1/620b92d2f949206efdcbe00b/6132630e-d485-49b0-ba62-3c9d641bbb0c/favicon.ico?format=100w" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+   <style>
+    :root {
+      --bg: #ffffff;
+      --muted: #1e412a;
+      --text: #0b1a10;
+      --brand: #4caf6e;
+      --shadow-soft: 0 6px 18px rgba(0,0,0,.2);
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --maxw: 1200px;
+    }
+
+    /* Reset & base */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 75% -10%, rgba(76,181,255,.08), transparent),
+                  radial-gradient(1000px 900px at -10% 20%, rgba(76,175,110,.07), transparent),
+                  var(--bg);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    a { color: white; text-decoration: none; }
+    .menu { display: flex; gap: 20px; align-items: center; }
+    .menu a { padding: 10px 12px; border-radius: 10px; color: var(--bg); font-weight: 600; }
+    .menu a:hover, .menu a:focus {background: rgba(76, 175, 111, 0.5); outline: none; }
+    h1, h2, h3 { font-family: Poppins, Inter, sans-serif; margin: 1rem 0 0; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 4vw, 3rem); }
+    h2 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+    h3 { font-size: clamp(1.2rem, 2.2vw, 1.5rem); }
+    p { margin: 0 0 1rem; color: var(--muted); }
+    .container { width: min(100%, var(--maxw)); margin-inline: auto; padding: 0 20px; }
+
+    
+    /* Header */
+    header {position: relative; top: 0; z-index: 50;background: var(--muted);}
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 0;}
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand img { width: 160px; height: auto; }
+    /* Hero */
+    .hero { position: relative; text-align: center; }
+    .hero h1 span { color:var(--brand); }
+    .cta { background: var(--brand); color:white; padding:12px 16px; border-radius: 12px; font-weight:700; box-shadow: var(--shadow-soft); }
+    .cta:hover{ background: white; color: var(--brand); outline: 2px solid var(--brand);}
+
+    /* Gallery */
+    .gallery {width: min(100%, 1400px);margin: 0 auto;padding: 40px 20px;display: grid;grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));gap: 20px;}
+    .gallery-item {position: relative;border-radius: var(--radius);overflow: hidden;box-shadow: var(--shadow-soft);cursor: pointer;transition: transform .2s ease, box-shadow .2s ease; aspect-ratio: 4/3;}
+    .gallery-item:hover {transform: translateY(-4px);box-shadow: var(--shadow);}
+    .gallery-item img {width: 100%;height: 100%;object-fit: cover;display: block;}
+    .gallery-title {position: absolute;bottom: 0;left: 0;right: 0;padding: 12px;background: linear-gradient(to top, rgba(0,0,0,.6), transparent);color: white;font-weight: 600;font-size: 1.1rem;}
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: rgba(0,0,0,0.9);
+      text-align: center;
+    }
+    .lightbox img {
+      margin: 60px auto 20px;
+      max-width: 90%;
+      max-height: 75%;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+    .lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+      color: white;
+      font-size: 40px;
+      cursor: pointer;
+    }
+    .lightbox .nav {
+      position: absolute;
+      top: 50%;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      padding: 20px;
+      user-select: none;
+    }
+    .lightbox .nav.left { left: 20px; }
+    .lightbox .nav.right { right: 20px; }
+    #caption {
+      color: #ccc;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+     /* Footer */
+    footer { border-top: 2px solid var(--muted); padding: 32px 0; color: var(--bg); background-color: var(--muted); margin-top: 50px; text-align: center;}
+    .copy { margin-top: 10px; font-size: .9rem; color: var(--bg); }
+    @media (max-width: 860px) {
+      .foot-grid { grid-template-columns: 1fr; }
+      .foot-links { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    }
+  </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+    <div class="container nav">
+      <div class="brand">
+        <a href="#home" aria-label="CropIntelek home">
+          <img src="https://images.squarespace-cdn.com/content/v1/620b92d2f949206efdcbe00b/bb2f970e-d4d2-4475-8d09-08e2d5b445e0/CI_Logo_dark+background.png?format=1500w" alt="CropIntelek logo" />
+        </a>
+      </div>
+      <label class="hamburger" for="nav-toggle" aria-label="Toggle menu"><span></span></label>
+      <nav class="menu" aria-label="Primary">
+        <a href="./index.html">Home</a>
+      </nav>
+    </div>
+  </header>
+
+    <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+        <h1>Our <span>Gallery</span> </h1>
+    </div>
+  </section>
+
+  <section class="gallery">
+    <div id="row-crops" class="gallery-item" onclick="openLightbox('row-crops','Row Crops')">
+      <img src="assets/trials/row-crops/image1.jpg" alt="Row Crops">
+      <div class="gallery-title">Row Crops</div>
+    </div>
+    <div id="field-trials" class="gallery-item" onclick="openLightbox('field-trials','Field Trials')">
+      <img src="assets/trials/field-trials/image1.jpg" alt="Field Trials">
+      <div class="gallery-title">Field Trials</div>
+    </div>
+    <div id="tree-crops" class="gallery-item" onclick="openLightbox('tree-crops','Tree Crops')">
+      <img src="assets/trials/tree-crops/image1.jpg" alt="Tree Crops">
+      <div class="gallery-title">Tree Crops</div>
+    </div>
+    <div id="downy-mildew" class="gallery-item" onclick="openLightbox('downy-mildew','Downy Mildew')">
+      <img src="assets/trials/downy-mildew/image1.jpg" alt="Downy Mildew">
+      <div class="gallery-title">Downy Mildew</div>
+    </div>
+    <div id="false-tiger-moth-grapes" class="gallery-item" onclick="openLightbox('false-tiger-moth-grapes','False Tiger Moth – Grapes')">
+      <img src="assets/trials/false-tiger-moth-grapes/image1.jpg" alt="False Tiger Moth Grapes">
+      <div class="gallery-title">False Tiger Moth – Grapes</div>
+    </div>
+    <div id="biostimulant" class="gallery-item" onclick="openLightbox('biostimulant','Biostimulant')">
+      <img src="assets/trials/biostimulant/image1.jpg" alt="Biostimulant">
+      <div class="gallery-title">Biostimulant</div>
+    </div>
+    <div id="fall-armyworm" class="gallery-item" onclick="openLightbox('fall-armyworm','Fall Armyworm (FAW)')">
+      <img src="assets/trials/fall-armyworm/image1.jpg" alt="Fall Armyworm">
+      <div class="gallery-title">Fall Armyworm (FAW)</div>
+    </div>
+    <div id="stone-fruit" class="gallery-item" onclick="openLightbox('stone-fruit','FCM – Stone Fruit')">
+      <img src="assets/trials/stone-fruit/image1.jpg" alt="FCM Stone Fruit">
+      <div class="gallery-title">FCM – Stone Fruit</div>
+    </div>
+    <div id="grapevines" class="gallery-item" onclick="openLightbox('grapevines','Grapevines')">
+      <img src="assets/trials/grapevines/image1.jpg" alt="Grapevines">
+      <div class="gallery-title">Grapevines</div>
+    </div>
+    <div id="insect-cage-study-maize" class="gallery-item" onclick="openLightbox('insect-cage-study-maize','Insect Cage Study – Maize')">
+      <img src="assets/trials/insect-cage-study-maize/image1.jpg" alt="Insect Cage Maize">
+      <div class="gallery-title">Insect Cage Study – Maize</div>
+    </div>
+    <div id="maize" class="gallery-item" onclick="openLightbox('maize','Maize')">
+      <img src="assets/trials/maize/image1.jpg" alt="Maize">
+      <div class="gallery-title">Maize</div>
+    </div>
+    <div id="pollinations-maize" class="gallery-item" onclick="openLightbox('pollinations-maize','Maize Pollinations')">
+      <img src="assets/trials/pollinations-maize/image1.jpg" alt="Maize Pollinations">
+      <div class="gallery-title">Maize Pollinations</div>
+    </div>
+    <div id="rust-wheat" class="gallery-item" onclick="openLightbox('rust-wheat','Rust – Wheat')">
+      <img src="assets/trials/rust-wheat/image1.jpg" alt="Rust Wheat">
+      <div class="gallery-title">Rust – Wheat</div>
+    </div>
+    <div id="vegetables" class="gallery-item" onclick="openLightbox('vegetables','Vegetables')">
+      <img src="assets/trials/vegetables/image1.jpg" alt="Vegetables">
+      <div class="gallery-title">Vegetables</div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+    <div id="caption"></div>
+    <div class="nav left">&#10094;</div>
+    <div class="nav right">&#10095;</div>
+  </div>
+
+  <div class="container">
+    <a class="cta" href="./index.html">← Back to Home</a>
+  </div>
+  
+    <!-- Footer -->
+  <footer>
+    <div class="container foot-grid">
+      <div>
+        <img src="https://images.squarespace-cdn.com/content/v1/620b92d2f949206efdcbe00b/bb2f970e-d4d2-4475-8d09-08e2d5b445e0/CI_Logo_dark+background.png?format=500w" alt="CropIntelek logo small" style="width:160px; opacity:.95;" />
+        <p class="copy">© <span id="year"></span> CropIntelek (Pty) Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const galleryData = {
+      "row-crops": [
+        "assets/trials/row-crops/image1.jpg",
+        "assets/trials/row-crops/image2.jpg",
+        "assets/trials/row-crops/image3.jpg",
+        "assets/trials/row-crops/image4.jpg",
+        "assets/trials/row-crops/image5.jpg",
+        "assets/trials/row-crops/image6.jpg",
+        "assets/trials/row-crops/image7.jpg",
+        "assets/trials/row-crops/image8.jpg",
+        "assets/trials/row-crops/image9.jpg",
+        "assets/trials/row-crops/image10.jpg",
+        "assets/trials/row-crops/image11.jpg",
+        "assets/trials/row-crops/image12.jpg",
+        "assets/trials/row-crops/image13.jpg",
+        "assets/trials/row-crops/image14.jpg",
+        "assets/trials/row-crops/image15.jpg",
+        "assets/trials/row-crops/image16.jpg",
+        "assets/trials/row-crops/image17.jpg",
+        "assets/trials/row-crops/image18.jpg",
+        "assets/trials/row-crops/image19.jpg",
+        "assets/trials/row-crops/image20.jpg",
+        "assets/trials/row-crops/image21.jpg",
+        "assets/trials/row-crops/image22.jpg",
+        "assets/trials/row-crops/image23.jpg",
+        "assets/trials/row-crops/image24.jpg",
+        "assets/trials/row-crops/image25.jpg",
+        "assets/trials/row-crops/image26.jpg"
+      ],
+      "field-trials": [
+        "assets/trials/field-trials/image1.jpg",
+        "assets/trials/field-trials/image2.jpg",
+        "assets/trials/field-trials/image3.jpg",
+        "assets/trials/field-trials/image4.jpg",
+        "assets/trials/field-trials/image5.jpg",
+        "assets/trials/field-trials/image6.jpg",
+        "assets/trials/field-trials/image7.jpg",
+        "assets/trials/field-trials/image8.jpg",
+        "assets/trials/field-trials/image9.jpg",
+        "assets/trials/field-trials/image10.jpg",
+        "assets/trials/field-trials/image11.jpg"
+      ],
+      "tree-crops": [
+        "assets/trials/tree-crops/image1.jpg",
+        "assets/trials/tree-crops/image2.jpg",
+        "assets/trials/tree-crops/image3.jpg",
+        "assets/trials/tree-crops/image4.jpg",
+        "assets/trials/tree-crops/image5.jpg",
+        "assets/trials/tree-crops/image6.jpg"
+      ],
+      "downy-mildew": [
+        "assets/trials/downy-mildew/image1.jpg",
+        "assets/trials/downy-mildew/image2.jpg",
+        "assets/trials/downy-mildew/image3.jpg",
+        "assets/trials/downy-mildew/image4.jpg",
+        "assets/trials/downy-mildew/image5.jpg",
+        "assets/trials/downy-mildew/image6.jpg"
+      ],
+      "false-tiger-moth-grapes": [
+        "assets/trials/false-tiger-moth-grapes/image1.jpg",
+        "assets/trials/false-tiger-moth-grapes/image2.jpg",
+        "assets/trials/false-tiger-moth-grapes/image3.jpg"
+      ],
+      "biostimulant": [
+        "assets/trials/biostimulant/image1.jpg",
+        "assets/trials/biostimulant/image2.jpg",
+        "assets/trials/biostimulant/image3.jpg",
+        "assets/trials/biostimulant/image4.jpg",
+        "assets/trials/biostimulant/image5.jpg",
+        "assets/trials/biostimulant/image6.jpg"
+      ],
+      "fall-armyworm": [
+        "assets/trials/fall-armyworm/image1.jpg",
+        "assets/trials/fall-armyworm/image2.jpg",
+        "assets/trials/fall-armyworm/image3.jpg",
+        "assets/trials/fall-armyworm/image4.jpg",
+        "assets/trials/fall-armyworm/image5.jpg",
+        "assets/trials/fall-armyworm/image6.jpg"
+      ],
+      "stone-fruit": [
+        "assets/trials/stone-fruit/image1.jpg",
+        "assets/trials/stone-fruit/image2.jpg",
+        "assets/trials/stone-fruit/image3.jpg",
+        "assets/trials/stone-fruit/image4.jpg",
+        "assets/trials/stone-fruit/image5.jpg",
+        "assets/trials/stone-fruit/image6.jpg"
+      ],
+      "grapevines": [
+        "assets/trials/grapevines/image1.jpg",
+        "assets/trials/grapevines/image2.jpg",
+        "assets/trials/grapevines/image3.jpg",
+        "assets/trials/grapevines/image4.jpg",
+        "assets/trials/grapevines/image5.jpg",
+        "assets/trials/grapevines/image6.jpg",
+        "assets/trials/grapevines/image7.jpg",
+        "assets/trials/grapevines/image8.jpg",
+        "assets/trials/grapevines/image9.jpg"
+      ],
+      "insect-cage-study-maize": [
+        "assets/trials/insect-cage-study-maize/image1.jpg",
+        "assets/trials/insect-cage-study-maize/image2.jpg",
+        "assets/trials/insect-cage-study-maize/image3.jpg",
+        "assets/trials/insect-cage-study-maize/image4.jpg",
+        "assets/trials/insect-cage-study-maize/image5.jpg",
+        "assets/trials/insect-cage-study-maize/image6.jpg"
+      ],
+      "maize": [
+        "assets/trials/maize/image1.jpg",
+        "assets/trials/maize/image2.jpg",
+        "assets/trials/maize/image3.jpg",
+        "assets/trials/maize/image4.jpg",
+      ],
+      "pollinations-maize": [
+        "assets/trials/pollinations-maize/image1.jpg",
+        "assets/trials/pollinations-maize/image2.jpg",
+        "assets/trials/pollinations-maize/image3.jpg",
+        "assets/trials/pollinations-maize/image4.jpg",
+        "assets/trials/pollinations-maize/image5.jpg",
+        "assets/trials/pollinations-maize/image6.jpg",
+        "assets/trials/pollinations-maize/image7.jpg",
+        "assets/trials/pollinations-maize/image8.jpg"
+      ],
+      "rust-wheat": [
+        "assets/trials/rust-wheat/image1.jpg",
+        "assets/trials/rust-wheat/image2.jpg",
+        "assets/trials/rust-wheat/image3.jpg"
+      ],
+      "vegetables": [
+        "assets/trials/vegetables/image1.jpg",
+        "assets/trials/vegetables/image2.jpg",
+        "assets/trials/vegetables/image3.jpg",
+        "assets/trials/vegetables/image4.jpg",
+        "assets/trials/vegetables/image5.jpg"
+      ]
+    };
+
+    let currentSet = [];
+    let currentIndex = 0;
+    let currentTitle = "";
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = document.getElementById("lightbox-img");
+    const caption = document.getElementById("caption");
+
+    function openLightbox(trial, title) {
+      currentSet = galleryData[trial] || [];
+      currentIndex = 0;
+      currentTitle = title;
+      if (currentSet.length > 0) {
+        showImage(currentIndex);
+        lightbox.style.display = "block";
+      }
+    }
+
+    function showImage(index) {
+      lightboxImg.src = currentSet[index];
+      caption.innerText = `${currentTitle} (${index+1}/${currentSet.length})`;
+    }
+
+    document.querySelector(".lightbox .close").onclick = () => {
+      lightbox.style.display = "none";
+    };
+    document.querySelector(".lightbox .nav.left").onclick = () => {
+      currentIndex = (currentIndex - 1 + currentSet.length) % currentSet.length;
+      showImage(currentIndex);
+    };
+    document.querySelector(".lightbox .nav.right").onclick = () => {
+      currentIndex = (currentIndex + 1) % currentSet.length;
+      showImage(currentIndex);
+    };
+
+    window.addEventListener("DOMContentLoaded", () => {
+        const hash = window.location.hash.substring(1); // e.g. "false-tiger-moth-grapes"
+        if (hash && galleryData[hash]) {
+            // Get the title from the element's .gallery-title
+            const el = document.getElementById(hash);
+            const title = el ? el.querySelector(".gallery-title").innerText : hash;
+            openLightbox(hash, title);
+        }
+    });
+  </script>
+</body>
+</html>
