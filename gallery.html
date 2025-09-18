@@ -59,10 +59,10 @@
 
     
     /* Header */
-    header {position: relative; top: 0; z-index: 50;background: var(--muted);}
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 0;}
+    header {position: relative; top: 0; z-index: 50;background: var(--muted);   border-bottom: 1px solid rgba(255,255,255,.06);}
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; height: 91px;}
     .brand { display: flex; align-items: center; gap: 12px; }
-    .brand img { width: 160px; height: auto; }
+    .brand img { width: 160px; height: auto; margin-top: 8px; }
     /* Hero */
     .hero { position: relative; text-align: center; }
     .hero h1 span { color:var(--brand); }
@@ -135,8 +135,8 @@
     <header>
     <div class="container nav">
       <div class="brand">
-        <a href="#home" aria-label="CropIntelek home">
-          <img src="https://images.squarespace-cdn.com/content/v1/620b92d2f949206efdcbe00b/bb2f970e-d4d2-4475-8d09-08e2d5b445e0/CI_Logo_dark+background.png?format=1500w" alt="CropIntelek logo" />
+        <a href="index.html" aria-label="CropIntelek home">
+          <img src="./assets/logo.png" alt="CropIntelek logo" />
         </a>
       </div>
       <label class="hamburger" for="nav-toggle" aria-label="Toggle menu"><span></span></label>
@@ -229,7 +229,7 @@
   <footer>
     <div class="container foot-grid">
       <div>
-        <img src="https://images.squarespace-cdn.com/content/v1/620b92d2f949206efdcbe00b/bb2f970e-d4d2-4475-8d09-08e2d5b445e0/CI_Logo_dark+background.png?format=500w" alt="CropIntelek logo small" style="width:160px; opacity:.95;" />
+        <img src="assets/logo.png" alt="CropIntelek logo small" style="width:160px; opacity:.95;" />
         <p class="copy">© <span id="year"></span> CropIntelek (Pty) Ltd. All rights reserved.</p>
       </div>
     </div>
