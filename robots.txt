@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /assets/
 
-Sitemap: https://cropintelek.github.io/sitemap.xml
+Sitemap: https://crop-intelek.github.io/sitemap.xml
