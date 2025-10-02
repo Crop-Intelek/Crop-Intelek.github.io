@@ -5,21 +5,76 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>CropIntelek – Gallery</title>
-  <meta name="description" content="CropIntelek (Pty) Ltd - Gallery." />
+  <title>CropIntelek Gallery | Agricultural Research Trials & Projects</title>
+  <meta name="description" content="Explore CropIntelek's comprehensive gallery of agricultural research projects including field trials, efficacy testing, crop protection studies, and registration trials across South Africa." />
+  <meta name="keywords" content="agricultural research gallery, field trials photos, efficacy testing images, crop protection trials, South Africa agriculture, research projects" />
+  <meta name="author" content="CropIntelek (Pty) Ltd" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://cropintelek.github.io/gallery.html" />
 
-  <!-- Open Graph / SEO (kept from the previous site where relevant) -->
+  <!-- Open Graph / Social Media -->
   <meta property="og:site_name" content="CropIntelek" />
-  <meta property="og:title" content="CropIntelek – Gallery" />
+  <meta property="og:title" content="CropIntelek Gallery | Agricultural Research Trials & Projects" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://cropintelek.com" />
-  <meta property="og:description" content="Timely, accurate and quality research solutions in South Africa." />
-  <meta property="og:image" content="https://static1.squarespace.com/static/620b92d2f949206efdcbe00b/t/620bd79cd847467897e43ea3/1644943260752/CI_Logo_dark+background.png?format=1500w" />
+  <meta property="og:url" content="https://cropintelek.github.io/gallery.html" />
+  <meta property="og:description" content="Explore CropIntelek's comprehensive gallery of agricultural research projects including field trials, efficacy testing, crop protection studies, and registration trials across South Africa." />
+  <meta property="og:image" content="https://cropintelek.github.io/assets/logo.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="CropIntelek Gallery - Agricultural Research Projects" />
 
-  <link rel="icon" href="https://images.squarespace-cdn.com/content/v1/620b92d2f949206efdcbe00b/6132630e-d485-49b0-ba62-3c9d641bbb0c/favicon.ico?format=100w" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CropIntelek Gallery | Agricultural Research Trials & Projects" />
+  <meta name="twitter:description" content="Explore CropIntelek's comprehensive gallery of agricultural research projects including field trials, efficacy testing, crop protection studies, and registration trials across South Africa." />
+  <meta name="twitter:image" content="https://cropintelek.github.io/assets/logo.png" />
+  <meta name="twitter:image:alt" content="CropIntelek Gallery - Agricultural Research Projects" />
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "CropIntelek Gallery",
+    "description": "Comprehensive gallery of CropIntelek's agricultural research projects and field trials",
+    "url": "https://cropintelek.github.io/gallery.html",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "CropIntelek (Pty) Ltd"
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://cropintelek.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Gallery",
+          "item": "https://cropintelek.github.io/gallery.html"
+        }
+      ]
+    },
+    "image": [
+      "https://cropintelek.github.io/assets/trials/row-crops/image1.jpg",
+      "https://cropintelek.github.io/assets/trials/field-trials/image1.jpg",
+      "https://cropintelek.github.io/assets/trials/maize/image1.jpg",
+      "https://cropintelek.github.io/assets/trials/grapevines/image1.jpg"
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="./assets/logo_sqr.png" />
+
+  <!-- Performance optimizations -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
 
    <style>
     :root {
@@ -155,59 +210,115 @@
 
   <section class="gallery">
     <div id="row-crops" class="gallery-item" onclick="openLightbox('row-crops','Row Crops')">
-      <img src="assets/trials/row-crops/image1.jpg" alt="Row Crops">
+      <img src="assets/trials/row-crops/image1.jpg" 
+           alt="Row Crops agricultural research trials" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Row Crops</div>
     </div>
     <div id="field-trials" class="gallery-item" onclick="openLightbox('field-trials','Field Trials')">
-      <img src="assets/trials/field-trials/image1.jpg" alt="Field Trials">
+      <img src="assets/trials/field-trials/image1.jpg" 
+           alt="Agricultural field trials research" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Field Trials</div>
     </div>
     <div id="tree-crops" class="gallery-item" onclick="openLightbox('tree-crops','Tree Crops')">
-      <img src="assets/trials/tree-crops/image1.jpg" alt="Tree Crops">
+      <img src="assets/trials/tree-crops/image1.jpg" 
+           alt="Tree crops agricultural research" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Tree Crops</div>
     </div>
     <div id="downy-mildew" class="gallery-item" onclick="openLightbox('downy-mildew','Downy Mildew')">
-      <img src="assets/trials/downy-mildew/image1.jpg" alt="Downy Mildew">
+      <img src="assets/trials/downy-mildew/image1.jpg" 
+           alt="Downy mildew crop disease research" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Downy Mildew</div>
     </div>
     <div id="false-tiger-moth-grapes" class="gallery-item" onclick="openLightbox('false-tiger-moth-grapes','False Tiger Moth – Grapes')">
-      <img src="assets/trials/false-tiger-moth-grapes/image1.jpg" alt="False Tiger Moth Grapes">
+      <img src="assets/trials/false-tiger-moth-grapes/image1.jpg" 
+           alt="False Tiger Moth in grapevines pest research" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">False Tiger Moth – Grapes</div>
     </div>
     <div id="biostimulant" class="gallery-item" onclick="openLightbox('biostimulant','Biostimulant')">
-      <img src="assets/trials/biostimulant/image1.jpg" alt="Biostimulant">
+      <img src="assets/trials/biostimulant/image1.jpg" 
+           alt="Biostimulant agricultural testing" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Biostimulant</div>
     </div>
     <div id="fall-armyworm" class="gallery-item" onclick="openLightbox('fall-armyworm','Fall Armyworm (FAW)')">
-      <img src="assets/trials/fall-armyworm/image1.jpg" alt="Fall Armyworm">
+      <img src="assets/trials/fall-armyworm/image1.jpg" 
+           alt="Fall Armyworm pest control research" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Fall Armyworm (FAW)</div>
     </div>
     <div id="stone-fruit" class="gallery-item" onclick="openLightbox('stone-fruit','FCM – Stone Fruit')">
-      <img src="assets/trials/stone-fruit/image1.jpg" alt="FCM Stone Fruit">
+      <img src="assets/trials/stone-fruit/image1.jpg" 
+           alt="False Codling Moth stone fruit research" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">FCM – Stone Fruit</div>
     </div>
     <div id="grapevines" class="gallery-item" onclick="openLightbox('grapevines','Grapevines')">
-      <img src="assets/trials/grapevines/image1.jpg" alt="Grapevines">
+      <img src="assets/trials/grapevines/image1.jpg" 
+           alt="Grapevine agricultural research trials" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Grapevines</div>
     </div>
     <div id="insect-cage-study-maize" class="gallery-item" onclick="openLightbox('insect-cage-study-maize','Insect Cage Study – Maize')">
-      <img src="assets/trials/insect-cage-study-maize/image1.jpg" alt="Insect Cage Maize">
+      <img src="assets/trials/insect-cage-study-maize/image1.jpg" 
+           alt="Insect cage study maize research" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Insect Cage Study – Maize</div>
     </div>
     <div id="maize" class="gallery-item" onclick="openLightbox('maize','Maize')">
-      <img src="assets/trials/maize/image1.jpg" alt="Maize">
+      <img src="assets/trials/maize/image1.jpg" 
+           alt="Maize agricultural field trials" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Maize</div>
     </div>
     <div id="pollinations-maize" class="gallery-item" onclick="openLightbox('pollinations-maize','Maize Pollinations')">
-      <img src="assets/trials/pollinations-maize/image1.jpg" alt="Maize Pollinations">
+      <img src="assets/trials/pollinations-maize/image1.jpg" 
+           alt="Maize pollination research studies" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Maize Pollinations</div>
     </div>
     <div id="rust-wheat" class="gallery-item" onclick="openLightbox('rust-wheat','Rust – Wheat')">
-      <img src="assets/trials/rust-wheat/image1.jpg" alt="Rust Wheat">
+      <img src="assets/trials/rust-wheat/image1.jpg" 
+           alt="Rust disease wheat crop research" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Rust – Wheat</div>
     </div>
     <div id="vegetables" class="gallery-item" onclick="openLightbox('vegetables','Vegetables')">
-      <img src="assets/trials/vegetables/image1.jpg" alt="Vegetables">
+      <img src="assets/trials/vegetables/image1.jpg" 
+           alt="Vegetable crop agricultural trials" 
+           width="400" 
+           height="300" 
+           loading="lazy">
       <div class="gallery-title">Vegetables</div>
     </div>
   </section>
@@ -229,7 +340,11 @@
   <footer>
     <div class="container foot-grid">
       <div>
-        <img src="assets/logo.png" alt="CropIntelek logo small" style="width:160px; opacity:.95;" />
+        <img src="assets/logo.png" 
+             alt="CropIntelek logo" 
+             width="160" 
+             height="63" 
+             style="opacity:.95;" />
         <p class="copy">© <span id="year"></span> CropIntelek (Pty) Ltd. All rights reserved.</p>
       </div>
     </div>
