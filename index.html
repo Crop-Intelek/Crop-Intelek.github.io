@@ -320,6 +320,21 @@
     .btn { background: var(--muted); color:var(--bg); padding:12px 18px; border-radius: 12px; font-weight:800; border:none; cursor:pointer; box-shadow: var(--shadow-soft); }
     .btn:hover { background: var(--bg); color: var(--text); outline: 2px solid var(--text); }
     .contact-card { background: var(--brand); border-radius: 16px; padding: 18px; display:grid; }
+    
+    /* Contact responsive */
+    .contact-info { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+    .contact-info .tag { display: block; text-align: center; }
+    
+    @media (max-width: 860px) {
+      .contact-wrap { grid-template-columns: 1fr; gap: 32px; }
+      .contact-info { grid-template-columns: 1fr; gap: 12px; }
+      .contact-card .spacer { height: 16px; }
+    }
+    
+    @media (max-width: 480px) {
+      .contact-info { grid-template-columns: 1fr; gap: 8px; }
+      .tag { font-size: .9rem; padding: .5rem .8rem; }
+    }
 
     /* Footer */
     footer { border-top: 2px solid var(--muted); padding: 32px 0; color: var(--bg); background-color: var(--muted); margin-top: 50px; }
@@ -742,18 +757,13 @@
 
         <div class="contact-card">
           <h3>Get in touch</h3>
-          <p>We’d love to hear from you</p>
-          <div class="grid-2">
+          <p>We'd love to hear from you</p>
+          <div class="contact-info">
             <span class="tag">Phone: <a href="tel:+27768525972">(+27) 76 8525 972</a></span>
             <span class="tag">Email: <a href="mailto:admin@cropintelek.co.za">admin@cropintelek.co.za</a></span>
             <span class="tag">Gauteng & Cape, South Africa</span>
           </div>
 
-          <div class="spacer"></div>
-          <div class="spacer"></div>
-          <div class="spacer"></div>
-          <div class="spacer"></div>
-          <div class="spacer"></div>
           <div class="spacer"></div>
           <div class="map">
             <img src="./assets/maps.webp" 
@@ -761,7 +771,7 @@
                  width="590" 
                  height="355" 
                  loading="lazy" 
-                 style="border-radius: 16px;" />
+                 style="width: 100%; height: auto; border-radius: 16px;" />
         </div>
         </div>
       </div>
