@@ -6,12 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="google-site-verification" content="N5GyW9HHIAmbq5ZGIgYMBi_hMhUYAW9rPcvlFM3-FJg" />
 
-  <title>CropIntelek – Accurate Agricultural Research | Field Trials South Africa</title>
+  <title>CropIntelek – Agricultural Research & Field Trials South Africa</title>
   <meta name="description" content="CropIntelek (Pty) Ltd provides timely, accurate and quality agricultural research solutions: field trials, efficacy testing, glasshouse trials, data reporting and registration trials across South Africa." />
   <meta name="keywords" content="agricultural research, field trials, efficacy testing, crop protection, South Africa, registration trials, glasshouse trials, biostimulant, plant growth regulator" />
   <meta name="author" content="CropIntelek (Pty) Ltd" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://crop-intelek.github.io/" />
+  
+  <!-- SEO: Choose one canonical version (www or non-www) -->
+  <!-- If using custom domain, configure redirects at registrar level -->
+  <!-- For GitHub Pages .github.io domains, both www and non-www work by default -->
   
   <!-- Cache Control -->
   <meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable">
@@ -19,7 +23,7 @@
 
   <!-- Open Graph / Social Media -->
   <meta property="og:site_name" content="CropIntelek" />
-  <meta property="og:title" content="CropIntelek – Accurate Agricultural Research | Field Trials South Africa" />
+  <meta property="og:title" content="CropIntelek – Agricultural Research & Field Trials South Africa" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://crop-intelek.github.io/" />
   <meta property="og:description" content="CropIntelek provides timely, accurate agricultural research solutions including field trials, efficacy testing, and registration trials across South Africa." />
@@ -30,7 +34,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="CropIntelek – Accurate Agricultural Research | Field Trials South Africa" />
+  <meta name="twitter:title" content="CropIntelek – Agricultural Research & Field Trials South Africa" />
   <meta name="twitter:description" content="CropIntelek provides timely, accurate agricultural research solutions including field trials, efficacy testing, and registration trials across South Africa." />
   <meta name="twitter:image" content="https://crop-intelek.github.io/assets/logo.webp" />
   <meta name="twitter:image:alt" content="CropIntelek Logo - Agricultural Research Company" />
@@ -211,7 +215,7 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    a { color: inherit; text-decoration: none; }
+    a { color: inherit; text-decoration: none;} .underline{text-decoration: underline;}
     img { max-width: 100%; display: block; height: auto;}
     picture { display: block; }
     picture img { width: 100%; height: auto; object-fit: cover; }
@@ -286,9 +290,73 @@
     @media (max-width: 640px) { .card { grid-column: span 12; } }
 
     /* About */
-    .about { display:grid; grid-template-columns: .9fr 1.1fr; gap: 32px; }
-    .about img { border-radius: 18px; border:1px solid rgba(255,255,255,.08); }
-    @media (max-width: 920px) { .about { grid-template-columns: 1fr; } }
+    .about { display:grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .about img { 
+      border-radius: 18px; 
+      border:1px solid rgba(255,255,255,.08); 
+      box-shadow: var(--shadow-soft);
+      width: 100%;
+      height: auto;
+    }
+    @media (max-width: 920px) { 
+      .about { grid-template-columns: 1fr; gap: 32px; } 
+      .about img { max-width: 500px; margin: 0 auto; }
+    }
+    
+    /* About Tags */
+    .about-tags { margin-top: 40px; }
+    .tag-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .tag-item { 
+      border-radius: 16px; 
+      padding: 24px; 
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .tag-item:hover { 
+      transform: translateY(-2px); 
+      box-shadow: var(--shadow);
+    }
+    .tag-item:nth-child(1) { 
+      background: linear-gradient(135deg, rgba(76, 175, 110, 0.15), rgba(46, 139, 87, 0.1));
+      border: 2px solid rgba(76, 175, 110, 0.3);
+    }
+    .tag-item:nth-child(2) { 
+      background: linear-gradient(135deg, rgba(76, 181, 255, 0.15), rgba(30, 144, 255, 0.1));
+      border: 2px solid rgba(76, 181, 255, 0.3);
+    }
+    .tag-item:nth-child(3) { 
+      background: linear-gradient(135deg, rgba(255, 165, 0, 0.15), rgba(255, 140, 0, 0.1));
+      border: 2px solid rgba(255, 165, 0, 0.3);
+    }
+    .tag-item h4 { 
+      font-size: 1.1rem; 
+      margin: 0 0 16px 0; 
+      color: var(--text); 
+      font-weight: 700;
+    }
+    .tag-pills { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 8px; 
+      justify-content: center; 
+      margin-bottom: 16px;
+    }
+    .tag-item .pill { 
+      font-size: 0.85rem; 
+      padding: 0.4rem 0.8rem;
+      font-weight: 600;
+    }
+    .tag-description { 
+      font-size: 0.85rem; 
+      color: var(--muted); 
+      margin: 16px 0 0 0; 
+      line-height: 1.5;
+    }
+    
+    @media (max-width: 980px) {
+      .tag-grid { grid-template-columns: 1fr; gap: 16px; }
+    }
 
     /* Cases */
     .case-grid { display:grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
@@ -403,7 +471,7 @@
         <p class="lead">CropIntelek (Pty) Ltd provides timely, accurate and quality research solutions across South Africa — from field and glasshouse trials to thorough reporting and registration support.</p>
         <div class="cta-row">
           <a class="cta" href="#services">Our Services</a>
-          <a class="ghost" href="#contact">Contact Us</a>
+          <a class="ghost" href="#contact">Get In Touch</a>
         </div>
       </div>
       <div class="hero-img">
@@ -433,34 +501,13 @@
 
       <div class="about">
         <div>
-            <p>CropIntelek delivers high‑quality agricultural research solutions. Our team of field investigators brings up to <strong>20 years’ experience</strong> running trials in <strong>all major bio‑climatic zones </strong>of South Africa. We focus on thorough methodologies and clear, high‑quality reports.</strong></p>
-                 <div class="tag-section">
-                    <h3 style="margin-top: 40px;">Registration & Commercial Trials</h3>
-                    <div style="margin-bottom: 40px;">
-                        <span class="pill">Field</span>
-                        <span class="pill">Glasshouse</span>
-                        <span class="pill">Tunnel</span>
-                        <span class="pill">Aerial</span>
-                    </div>
-                </div>
-                <div style="margin-bottom: 40px;">
-                    <h3>Crops</h3>
-                    <div>
-                        <span class="pill">Fruits</span>
-                        <span class="pill">Grains</span>
-                        <span class="pill">Row crops</span>
-                        <span class="pill">Vegetables</span>
-                        <span class="pill">Grasses</span>
-                    </div>
-                </div>
-                <div class="tag-section">
-                    <h3>Reports</h3>
-                    <div>
-                        <span class="pill">ARM</span>
-                        <span class="pill">GEP</span>
-                        <span class="pill">EPPO Guidelines</span>
-                    </div>
-                </div>
+            <p>CropIntelek delivers high‑quality agricultural research solutions. Our team of field investigators brings up to <strong>20 years' experience</strong> running trials in <strong>all major bio‑climatic zones </strong>of South Africa. We focus on thorough methodologies and clear, high‑quality reports.</p>
+            
+            <p>Our comprehensive approach to agricultural research involves everything from initial protocol development to final data analysis and regulatory reporting. We specialize in conducting precise field trials that provide actionable insights for crop protection products, biostimulants, and agricultural inputs across diverse South African growing conditions.</p>
+            
+            <p>With extensive experience in both commercial and registration trials, CropIntelek ensures that all studies meet international standards including <a class="underline" href="https://www.eppo.int/" target="_blank" rel="noopener noreferrer">EPPO (European and Mediterranean Plant Protection Organization)</a> protocols and ARM (Agricultural Research Manual) guidelines. Our expertise spans multiple crop categories including grains, fruits, vegetables, and specialty crops, allowing us to deliver comprehensive research solutions tailored to South Africa's unique agricultural landscape.</p>
+            
+            <p>We follow best practices established by leading agricultural research organizations including the <a class="underline" href="https://www.fao.org/" target="_blank" rel="noopener noreferrer">Food and Agriculture Organization (FAO)</a> and maintain compliance with South African regulatory requirements through the <a class="underline" href="https://www.dalrrd.gov.za/" target="_blank" rel="noopener noreferrer">Department of Agriculture, Land Reform and Rural Development</a>.</p>
         </div>
         <div>
           <picture>
@@ -474,6 +521,42 @@
           </picture>
         </div>
       </div>
+      
+      <!-- Compact tag sections below the about content -->
+      <div class="about-tags">
+        <div class="tag-grid">
+          <div class="tag-item">
+            <h4>Trial Types</h4>
+            <div class="tag-pills">
+              <span class="pill">Field</span>
+              <span class="pill">Glasshouse</span>
+              <span class="pill">Tunnel</span>
+              <span class="pill">Aerial</span>
+            </div>
+          </div>
+          
+          <div class="tag-item">
+            <h4>Crops</h4>
+            <div class="tag-pills">
+              <span class="pill">Fruits</span>
+              <span class="pill">Grains</span>
+              <span class="pill">Row crops</span>
+              <span class="pill">Vegetables</span>
+              <span class="pill">Grasses</span>
+            </div>
+          </div>
+          
+          <div class="tag-item">
+            <h4>Reports</h4>
+            <div class="tag-pills">
+              <span class="pill">ARM</span>
+              <span class="pill">GEP</span>
+              <span class="pill">EPPO Guidelines</span>
+            </div>
+            <p class="tag-description">Our reports follow international standards including <a class="underline" href="https://www.eppo.int/standards/" target="_blank" rel="noopener noreferrer">EPPO guidelines</a> and are prepared according to ARM (Agricultural Research Manual) protocols for maximum regulatory acceptance.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -485,8 +568,10 @@
         <span class="pill">What we do</span>
         <h2>Registration & Commercial Trials</h2>
       </div>
-      <a class="ghost" href="#contact">Request a proposal</a>
+      <a class="ghost" href="#contact">Request Proposal</a>
     </div>
+    
+    <p style="margin-bottom: 40px; font-size: 1.1rem; color: var(--muted);">We conduct comprehensive agricultural research trials across South Africa, providing reliable data for product registration and commercial development. Our services cover the full spectrum of agricultural research needs, from efficacy testing to crop selectivity studies, ensuring your products meet regulatory requirements and perform optimally in real-world conditions.</p>
 
     <div class="cards">
       <!-- Efficacy -->
@@ -576,7 +661,7 @@
                 <span class="pill">Projects</span>
                 <h2>Our Featured Work</h2>
             </div>
-            <a class="cta" href="./gallery.html">Gallery</a>
+            <a class="cta" href="./gallery.html">View Gallery</a>
         </div>
 
       <div class="case-grid">
@@ -594,7 +679,7 @@
           </figure>
           <div class="body">
             <h3>False Tiger Moth – Grapes</h3>
-            <a class="tag" href="./gallery.html#false-tiger-moth-grapes">Go to -></a>
+            <a class="tag" href="./gallery.html#false-tiger-moth-grapes">View Project -></a>
           </div>
         </article>
 
@@ -612,7 +697,7 @@
           </figure>
           <div class="body">
             <h3>Row Crops</h3>
-            <a class="tag" href="./gallery.html#row-crops">Go to -></a>
+            <a class="tag" href="./gallery.html#row-crops">View Project -></a>
           </div>
         </article>
       </div>
