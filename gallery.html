@@ -129,7 +129,7 @@
     .cta:hover{ background: white; color: var(--brand); outline: 2px solid var(--brand);}
 
     /* Gallery */
-    .gallery {width: min(100%, 1400px);margin: 0 auto;padding: 40px 20px;display: grid;grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));gap: 20px;}
+    .gallery {width: 100%;margin: 0 auto;padding: 20px;display: grid;grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));gap: 15px;}
     .gallery-item {position: relative;border-radius: var(--radius);overflow: hidden;box-shadow: var(--shadow-soft);cursor: pointer;transition: transform .2s ease, box-shadow .2s ease; aspect-ratio: 4/3;}
     .gallery-item:hover {transform: translateY(-4px);box-shadow: var(--shadow);}
     .gallery-item img,
@@ -140,6 +140,28 @@
       display: block;
     }
     .gallery-title {position: absolute;bottom: 0;left: 0;right: 0;padding: 12px;background: linear-gradient(to top, rgba(0,0,0,.6), transparent);color: white;font-weight: 600;font-size: 1.1rem;}
+    
+    /* Mobile responsive adjustments */
+    @media (min-width: 768px) {
+      .gallery {
+        width: min(100%, 1400px);
+        padding: 40px 20px;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 20px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .gallery {
+        padding: 15px 10px;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 12px;
+      }
+      .gallery-title {
+        font-size: 1rem;
+        padding: 10px;
+      }
+    }
 
     /* Lightbox */
     .lightbox {
@@ -180,6 +202,45 @@
     }
     .lightbox .nav.left { left: 20px; }
     .lightbox .nav.right { right: 20px; }
+    
+    /* Mobile lightbox adjustments */
+    @media (max-width: 768px) {
+      .lightbox img {
+        margin: 80px auto 20px;
+        max-width: 95%;
+        max-height: 70%;
+      }
+      .lightbox .close {
+        top: 15px;
+        right: 20px;
+        font-size: 35px;
+      }
+      .lightbox .nav {
+        font-size: 35px;
+        padding: 15px;
+      }
+      .lightbox .nav.left { left: 10px; }
+      .lightbox .nav.right { right: 10px; }
+    }
+    
+    @media (max-width: 480px) {
+      .lightbox img {
+        margin: 60px auto 15px;
+        max-width: 98%;
+        max-height: 65%;
+      }
+      .lightbox .close {
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+      }
+      .lightbox .nav {
+        font-size: 30px;
+        padding: 10px;
+      }
+      .lightbox .nav.left { left: 5px; }
+      .lightbox .nav.right { right: 5px; }
+    }
     #caption {
       color: #ccc;
       font-size: 1rem;
@@ -189,6 +250,48 @@
      /* Footer */
     footer { border-top: 2px solid var(--muted); padding: 32px 0; color: var(--bg); background-color: var(--muted); margin-top: 50px; text-align: center;}
     .copy { margin-top: 10px; font-size: .9rem; color: var(--bg); }
+    
+    /* Mobile responsive improvements */
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 15px;
+      }
+      .nav {
+        padding: 10px 0;
+        height: auto;
+      }
+      .brand img {
+        width: 140px;
+      }
+      .hero {
+        padding: 20px 0;
+      }
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      footer {
+        padding: 20px 0;
+        margin-top: 30px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 10px;
+      }
+      .brand img {
+        width: 120px;
+      }
+      h1 {
+        font-size: 1.8rem;
+      }
+      .cta {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+      }
+    }
+    
     @media (max-width: 860px) {
       .foot-grid { grid-template-columns: 1fr; }
       .foot-links { grid-template-columns: repeat(3, minmax(0,1fr)); }
@@ -221,7 +324,9 @@
   <section class="gallery">
     <div id="row-crops" class="gallery-item" onclick="openLightbox('row-crops','Row Crops')">
       <picture>
-        <source srcset="assets/trials/row-crops/image1.jpg" type="image/jpeg">
+        <source srcset="assets/trials/row-crops/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/row-crops/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/row-crops/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
         <img src="assets/trials/row-crops/image1.jpg" 
              alt="Row Crops agricultural research trials" 
              width="400" 
@@ -233,7 +338,9 @@
     </div>
     <div id="field-trials" class="gallery-item" onclick="openLightbox('field-trials','Field Trials')">
       <picture>
-        <source srcset="assets/trials/field-trials/image1.jpg" type="image/jpeg">
+        <source srcset="assets/trials/field-trials/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/field-trials/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/field-trials/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
         <img src="assets/trials/field-trials/image1.jpg" 
              alt="Agricultural field trials research" 
              width="400" 
@@ -244,59 +351,94 @@
       <div class="gallery-title">Field Trials</div>
     </div>
     <div id="tree-crops" class="gallery-item" onclick="openLightbox('tree-crops','Tree Crops')">
-      <img src="assets/trials/tree-crops/image1.jpg" 
-           alt="Tree crops agricultural research" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/tree-crops/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/tree-crops/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/tree-crops/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/tree-crops/image1.jpg" 
+             alt="Tree crops agricultural research" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">Tree Crops</div>
     </div>
     <div id="downy-mildew" class="gallery-item" onclick="openLightbox('downy-mildew','Downy Mildew')">
-      <img src="assets/trials/downy-mildew/image1.jpg" 
-           alt="Downy mildew crop disease research" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/downy-mildew/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/downy-mildew/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/downy-mildew/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/downy-mildew/image1.jpg" 
+             alt="Downy mildew crop disease research" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">Downy Mildew</div>
     </div>
     <div id="false-tiger-moth-grapes" class="gallery-item" onclick="openLightbox('false-tiger-moth-grapes','False Tiger Moth – Grapes')">
-      <img src="assets/trials/false-tiger-moth-grapes/image1.jpg" 
-           alt="False Tiger Moth in grapevines pest research" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/false-tiger-moth-grapes/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/false-tiger-moth-grapes/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/false-tiger-moth-grapes/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/false-tiger-moth-grapes/image1.jpg" 
+             alt="False Tiger Moth in grapevines pest research" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">False Tiger Moth – Grapes</div>
     </div>
     <div id="biostimulant" class="gallery-item" onclick="openLightbox('biostimulant','Biostimulant')">
-      <img src="assets/trials/biostimulant/image1.jpg" 
-           alt="Biostimulant agricultural testing" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/biostimulant/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/biostimulant/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/biostimulant/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/biostimulant/image1.jpg" 
+             alt="Biostimulant agricultural testing" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">Biostimulant</div>
     </div>
     <div id="fall-armyworm" class="gallery-item" onclick="openLightbox('fall-armyworm','Fall Armyworm (FAW)')">
-      <img src="assets/trials/fall-armyworm/image1.jpg" 
-           alt="Fall Armyworm pest control research" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/fall-armyworm/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/fall-armyworm/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/fall-armyworm/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/fall-armyworm/image1.jpg" 
+             alt="Fall Armyworm pest control research" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">Fall Armyworm (FAW)</div>
     </div>
     <div id="stone-fruit" class="gallery-item" onclick="openLightbox('stone-fruit','FCM – Stone Fruit')">
-      <img src="assets/trials/stone-fruit/image1.jpg" 
-           alt="False Codling Moth stone fruit research" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/stone-fruit/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/stone-fruit/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/stone-fruit/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/stone-fruit/image1.jpg" 
+             alt="False Codling Moth stone fruit research" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">FCM – Stone Fruit</div>
     </div>
     <div id="grapevines" class="gallery-item" onclick="openLightbox('grapevines','Grapevines')">
-      <img src="assets/trials/grapevines/image1.jpg" 
-           alt="Grapevine agricultural research trials" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/grapevines/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/grapevines/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/grapevines/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/grapevines/image1.jpg" 
+             alt="Grapevine agricultural research trials" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">Grapevines</div>
     </div>
     <div id="insect-cage-study-maize" class="gallery-item" onclick="openLightbox('insect-cage-study-maize','Insect Cage Study – Maize')">
@@ -308,35 +450,55 @@
       <div class="gallery-title">Insect Cage Study – Maize</div>
     </div>
     <div id="maize" class="gallery-item" onclick="openLightbox('maize','Maize')">
-      <img src="assets/trials/maize/image1.jpg" 
-           alt="Maize agricultural field trials" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/maize/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/maize/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/maize/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/maize/image1.jpg" 
+             alt="Maize agricultural field trials" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">Maize</div>
     </div>
     <div id="pollinations-maize" class="gallery-item" onclick="openLightbox('pollinations-maize','Maize Pollinations')">
-      <img src="assets/trials/pollinations-maize/image1.jpg" 
-           alt="Maize pollination research studies" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/pollinations-maize/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/pollinations-maize/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/pollinations-maize/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/pollinations-maize/image1.jpg" 
+             alt="Maize pollination research studies" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">Maize Pollinations</div>
     </div>
     <div id="rust-wheat" class="gallery-item" onclick="openLightbox('rust-wheat','Rust – Wheat')">
-      <img src="assets/trials/rust-wheat/image1.jpg" 
-           alt="Rust disease wheat crop research" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/rust-wheat/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/rust-wheat/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/rust-wheat/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/rust-wheat/image1.jpg" 
+             alt="Rust disease wheat crop research" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">Rust – Wheat</div>
     </div>
     <div id="vegetables" class="gallery-item" onclick="openLightbox('vegetables','Vegetables')">
-      <img src="assets/trials/vegetables/image1.jpg" 
-           alt="Vegetable crop agricultural trials" 
-           width="400" 
-           height="300" 
-           loading="lazy">
+      <picture>
+        <source srcset="assets/trials/vegetables/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/vegetables/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/vegetables/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/vegetables/image1.jpg" 
+             alt="Vegetable crop agricultural trials" 
+             width="400" 
+             height="300" 
+             loading="lazy">
+      </picture>
       <div class="gallery-title">Vegetables</div>
     </div>
   </section>
@@ -526,7 +688,30 @@
     }
 
     function showImage(index) {
-      lightboxImg.src = currentSet[index];
+      // Determine if we should use mobile or desktop version based on screen width
+      const isMobile = window.innerWidth <= 768;
+      const imagePath = currentSet[index];
+      
+      // Convert to mobile version if on mobile and mobile version exists
+      if (isMobile && imagePath.includes('/image') && !imagePath.includes('_mobile')) {
+        const mobilePath = imagePath.replace('.jpg', '_mobile.webp');
+        lightboxImg.src = mobilePath;
+        // Fallback to original image if mobile version fails to load
+        lightboxImg.onerror = function() {
+          this.src = imagePath;
+          this.onerror = null; // Prevent infinite loop
+        };
+      } else {
+        // For desktop: try WebP first, fallback to JPEG
+        const webpPath = imagePath.replace('.jpg', '.webp');
+        lightboxImg.src = webpPath;
+        lightboxImg.onerror = function() {
+          // Fallback to original JPEG if WebP fails
+          this.src = imagePath;
+          this.onerror = null; // Prevent infinite loop
+        };
+      }
+      
       caption.innerText = `${currentTitle} (${index+1}/${currentSet.length})`;
     }
 
@@ -541,6 +726,43 @@
       currentIndex = (currentIndex + 1) % currentSet.length;
       showImage(currentIndex);
     };
+
+    // Handle window resize to update lightbox images
+    window.addEventListener("resize", () => {
+      if (lightbox.style.display === "block" && currentSet.length > 0) {
+        showImage(currentIndex);
+      }
+    });
+
+    // Add touch/swipe support for mobile lightbox navigation
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    lightbox.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    lightbox.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    function handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = touchStartX - touchEndX;
+      
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          // Swipe left - next image
+          currentIndex = (currentIndex + 1) % currentSet.length;
+          showImage(currentIndex);
+        } else {
+          // Swipe right - previous image
+          currentIndex = (currentIndex - 1 + currentSet.length) % currentSet.length;
+          showImage(currentIndex);
+        }
+      }
+    }
 
     window.addEventListener("DOMContentLoaded", () => {
         const hash = window.location.hash.substring(1); // e.g. "false-tiger-moth-grapes"

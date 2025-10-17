@@ -13,14 +13,6 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://crop-intelek.github.io/" />
   
-  <!-- SEO: www/non-www subdomain handling -->
-  <!-- For crop-intelek.github.io: Both www and non-www versions work by default -->
-  <!-- To fix duplicate content issue, choose one canonical version: -->
-  <!-- Option 1: Redirect www to non-www (recommended for GitHub Pages) -->
-  <!-- Option 2: Redirect non-www to www -->
-  <!-- Implementation: Configure at domain registrar or hosting provider level -->
-  <!-- Current canonical URL: https://crop-intelek.github.io/ (non-www version) -->
-  
   <!-- Cache Control -->
   <meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable">
   <meta http-equiv="Expires" content="Wed, 21 Jun 2025 07:00:00 GMT">
@@ -179,6 +171,56 @@
   }
   </script>
 
+  <!-- FAQ Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What types of agricultural research trials does CropIntelek conduct?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CropIntelek conducts comprehensive agricultural research trials including efficacy testing, crop selectivity studies, biostimulant evaluations, plant growth regulator trials, fertilizer assessments, and adjuvant testing. We specialize in field trials, glasshouse studies, tunnel trials, and aerial applications across all major bio-climatic zones in South Africa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which crops do you test agricultural products on?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We test agricultural products across diverse crop categories including fruits, grains, row crops, vegetables, and grasses. Our expertise spans major South African crops such as maize, wheat, citrus, grapes, stone fruit, vegetables, and specialty crops."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What regulatory standards do your trials follow?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "All our trials meet international standards including EPPO (European and Mediterranean Plant Protection Organization) protocols and ARM (Agricultural Research Manual) guidelines. We follow best practices established by the Food and Agriculture Organization (FAO) and maintain compliance with South African regulatory requirements."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long do agricultural field trials typically take?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Trial duration varies depending on crop type and research objectives. Annual crops like maize and wheat typically require 4-6 months, while perennial crops may need 12-24 months for comprehensive evaluation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What geographic areas does CropIntelek cover in South Africa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CropIntelek operates across all major bio-climatic zones in South Africa, including Gauteng, Western Cape, Eastern Cape, KwaZulu-Natal, Free State, and other agricultural regions."
+        }
+      }
+    ]
+  }
+  </script>
+
   <link rel="icon" href="./assets/logo_sqr.webp" />
   <link rel="apple-touch-icon" href="./assets/logo_sqr.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="./assets/logo_sqr.png" />
@@ -190,7 +232,8 @@
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   
-  <link rel="preload" href="./assets/trials/maize/image1.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="preload" href="./assets/trials/maize/image1_mobile.webp" as="image" type="image/webp" fetchpriority="high" media="(max-width: 768px)">
+  <link rel="preload" href="./assets/trials/maize/image1.webp" as="image" type="image/webp" fetchpriority="high" media="(min-width: 769px)">
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
 
@@ -250,9 +293,22 @@
     .cta:hover{ background: white; color: var(--brand); outline: 2px solid var(--brand);}
     /* Dropdown */
     .dropdown {position: relative;display: inline-block;cursor: pointer;}
-    .dropdown .dropbtn {padding: 10px 12px;border-radius: 10px;color: var(--bg);font-weight: 600;display: inline-block;}
-    .dropdown-content {display: none;position: absolute;background: var(--text);min-width: 160px;box-shadow: var(--shadow-soft);border-radius: 12px;overflow: hidden;z-index: 1000;}
-    .dropdown-content a {display: block;padding: 10px 14px;color: var(--bg);font-weight: 500;}
+    .dropdown .dropbtn {padding: 10px 12px;border-radius: 10px;color: var(--bg);font-weight: 600;display: inline-block;text-decoration: none;}
+    .dropdown .dropbtn:hover {background: rgba(76, 175, 111, 0.5);}
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--text);
+      min-width: 160px;
+      box-shadow: var(--shadow-soft);
+      border-radius: 12px;
+      overflow: hidden;
+      z-index: 1000;
+      margin-top: 4px;
+    }
+    .dropdown-content a {display: block;padding: 10px 14px;color: var(--bg);font-weight: 500;text-decoration: none;}
     .dropdown-content a:hover {background: rgba(76, 175, 111, 0.5);}
     .dropdown:hover .dropdown-content {display: block;}
 
@@ -267,6 +323,23 @@
       .menu { position: fixed; inset: 70px 16px auto 16px; flex-direction: column; padding: 14px; border:1px solid rgba(255,255,255,.08); background: rgba(11,26,16,.95); border-radius: 16px; transform: translateY(-20px) scale(.98); opacity:0; pointer-events:none; transition:.25s ease; }
       #nav-toggle:checked ~ .menu { opacity:1; transform: translateY(0) scale(1); pointer-events:auto; }
       .hamburger { display:grid; }
+      
+      /* Mobile dropdown adjustments */
+      .dropdown { position: static; display: block; }
+      .dropdown-content { 
+        position: static; 
+        display: block; 
+        background: transparent; 
+        box-shadow: none; 
+        min-width: auto; 
+        margin-top: 8px; 
+        padding-left: 16px;
+      }
+      .dropdown-content a {
+        padding: 8px 0;
+        border-top: 1px solid rgba(255,255,255,0.1);
+      }
+      .dropdown:hover .dropdown-content { display: block; }
     }
 
     /* Hero */
@@ -427,6 +500,113 @@
     .tag:hover { background: var(--bg); color: var(--muted); outline: 2px solid var(--muted);}
     .grid-2 { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; }
 
+    /* FAQ Section */
+    .faq-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .faq-item {
+      border: 1px solid rgba(30, 65, 42, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .faq-item:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    
+    .faq-question {
+      width: 100%;
+      padding: 20px 24px;
+      border: none;
+      background: transparent;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+      background: rgba(76, 175, 110, 0.05);
+    }
+    
+    .faq-question:focus {
+      outline: 2px solid var(--brand);
+      outline-offset: -2px;
+    }
+    
+    .faq-icon {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--brand);
+      transition: transform 0.3s ease;
+      min-width: 24px;
+      text-align: center;
+    }
+    
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      background: rgba(248, 250, 252, 0.8);
+    }
+    
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding: 0 24px 20px;
+    }
+    
+    .faq-answer p {
+      margin: 0;
+      padding-top: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    
+    /* Mobile responsive FAQ */
+    @media (max-width: 768px) {
+      .faq-container {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        max-width: 800px;
+      }
+      
+      .faq-question {
+        padding: 16px 20px;
+        font-size: 1rem;
+      }
+      
+      .faq-item.active .faq-answer {
+        padding: 0 20px 16px;
+      }
+      
+      .faq-icon {
+        font-size: 1.3rem;
+      }
+    }
+    
+    @media (max-width: 1024px) {
+      .faq-container {
+        gap: 16px;
+      }
+    }
+
     /* Smooth scroll */
     html { scroll-behavior: smooth; }
   </style>
@@ -463,6 +643,7 @@
             </div>
         </div>
         <a href="#team">Team</a>
+        <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -482,7 +663,8 @@
       </div>
       <div class="hero-img">
         <picture>
-          <source srcset="./assets/trials/maize/image1.webp" type="image/webp">
+          <source srcset="./assets/trials/maize/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+          <source srcset="./assets/trials/maize/image1.webp" type="image/webp" media="(min-width: 769px)">
           <img src="./assets/trials/maize/image1.webp" 
                alt="Maize field trials - CropIntelek agricultural research" 
                width="372" 
@@ -517,7 +699,8 @@
         </div>
         <div>
           <picture>
-            <source srcset="./assets/trials/row-crops/image23.webp" type="image/webp">
+            <source srcset="./assets/trials/row-crops/image23_mobile.webp" type="image/webp" media="(max-width: 768px)">
+            <source srcset="./assets/trials/row-crops/image23.webp" type="image/webp" media="(min-width: 769px)">
             <img src="./assets/trials/row-crops/image23.webp" 
                  alt="Row crops agricultural field research trials" 
                  width="370" 
@@ -674,7 +857,8 @@
         <article class="case">
           <figure>
             <picture>
-              <source srcset="./assets/trials/false-tiger-moth-grapes/image1.webp" type="image/webp">
+              <source srcset="./assets/trials/false-tiger-moth-grapes/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+              <source srcset="./assets/trials/false-tiger-moth-grapes/image1.webp" type="image/webp" media="(min-width: 769px)">
               <img src="./assets/trials/false-tiger-moth-grapes/image1.webp" 
                    alt="Vineyard research – False Tiger Moth in Grapes" 
                    width="372" 
@@ -692,7 +876,8 @@
         <article class="case">
           <figure>
             <picture>
-              <source srcset="./assets/trials/row-crops/image1.webp" type="image/webp">
+              <source srcset="./assets/trials/row-crops/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+              <source srcset="./assets/trials/row-crops/image1.webp" type="image/webp" media="(min-width: 769px)">
               <img src="./assets/trials/row-crops/image1.webp" 
                    alt="Row Crops agricultural research trials" 
                    width="372" 
@@ -812,6 +997,120 @@
 </section>
 
 
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <span class="pill">Get Answers</span>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+      </div>
+
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What types of agricultural research trials does CropIntelek conduct?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>CropIntelek conducts comprehensive agricultural research trials including efficacy testing, crop selectivity studies, biostimulant evaluations, plant growth regulator trials, fertilizer assessments, and adjuvant testing. We specialize in field trials, glasshouse studies, tunnel trials, and aerial applications across all major bio-climatic zones in South Africa.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Which crops do you test agricultural products on?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We test agricultural products across diverse crop categories including fruits, grains, row crops, vegetables, and grasses. Our expertise spans major South African crops such as maize, wheat, citrus, grapes, stone fruit, vegetables, and specialty crops. We adapt our trial protocols to meet the specific requirements of each crop type and growing region.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What regulatory standards do your trials follow?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>All our trials meet international standards including EPPO (European and Mediterranean Plant Protection Organization) protocols and ARM (Agricultural Research Manual) guidelines. We follow best practices established by the Food and Agriculture Organization (FAO) and maintain compliance with South African regulatory requirements through the Department of Agriculture, Land Reform and Rural Development.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How long do agricultural field trials typically take?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Trial duration varies depending on crop type and research objectives. Annual crops like maize and wheat typically require 4-6 months, while perennial crops may need 12-24 months for comprehensive evaluation. We provide detailed timelines during project planning and maintain regular communication throughout the trial period to ensure timely delivery of results.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What geographic areas does CropIntelek cover in South Africa?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>CropIntelek operates across all major bio-climatic zones in South Africa, including Gauteng, Western Cape, Eastern Cape, KwaZulu-Natal, Free State, and other agricultural regions. Our network of field investigators and research sites allows us to conduct trials in diverse growing conditions, from coastal areas to highland regions, ensuring comprehensive product evaluation across different environmental conditions.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What types of reports do you provide after completing trials?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We deliver comprehensive reports including ARM-compliant documentation, GEP (Good Experimental Practice) reports, and EPPO guideline-compliant submissions. Our reports feature detailed statistical analysis, high-quality photography, clear data presentation, and regulatory-ready documentation designed for maximum acceptance by agricultural authorities and regulatory bodies.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Do you conduct both commercial and registration trials?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, CropIntelek conducts both commercial efficacy trials and registration trials for regulatory submission. Our team has extensive experience in both areas, ensuring that commercial trials provide actionable insights for product development while registration trials meet all regulatory requirements for product approval in South Africa and international markets.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>What experience does your team have in agricultural research?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Our team of field investigators brings up to 20 years of experience running agricultural trials across all major bio-climatic zones in South Africa. We combine extensive field experience with rigorous scientific methodology, ensuring that every trial delivers reliable, actionable data for product development and regulatory submission.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>How do you ensure trial quality and data reliability?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>We maintain strict quality control through standardized protocols, regular field monitoring, detailed record-keeping, and rigorous statistical analysis. Our trials follow GEP principles with proper randomization, replication, and statistical design. We use calibrated equipment, maintain detailed field logs, and conduct thorough data validation to ensure reliable, reproducible results.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>Can you help with international regulatory submissions?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Yes, our trials are designed to meet international standards and can support submissions to various regulatory authorities. We follow EPPO guidelines and FAO best practices, making our data suitable for international regulatory submissions. We can also provide guidance on specific regulatory requirements for different target markets.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Contact -->
   <section id="contact">
     <div class="container">
@@ -898,6 +1197,87 @@
   <script>
     // Auto year in footer
     document.getElementById('year').textContent = new Date().getFullYear();
+
+    // FAQ Accordion functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqQuestions = document.querySelectorAll('.faq-question');
+      
+      faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+          const faqItem = this.parentElement;
+          const isActive = faqItem.classList.contains('active');
+          
+          // Close all other FAQ items
+          faqQuestions.forEach(q => {
+            const item = q.parentElement;
+            if (item !== faqItem) {
+              item.classList.remove('active');
+              q.setAttribute('aria-expanded', 'false');
+            }
+          });
+          
+          // Toggle current FAQ item
+          if (isActive) {
+            faqItem.classList.remove('active');
+            this.setAttribute('aria-expanded', 'false');
+          } else {
+            faqItem.classList.add('active');
+            this.setAttribute('aria-expanded', 'true');
+          }
+        });
+        
+        // Keyboard accessibility
+        question.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            this.click();
+          }
+        });
+      });
+      
+      // Dropdown functionality for mobile
+      const dropdown = document.querySelector('.dropdown');
+      const dropdownContent = document.querySelector('.dropdown-content');
+      
+      if (dropdown && dropdownContent) {
+        const dropbtn = dropdown.querySelector('.dropbtn');
+        
+        // Ensure dropdown is hidden on page load
+        dropdownContent.style.display = 'none';
+        
+        // Toggle dropdown on click (for mobile only)
+        dropbtn.addEventListener('click', function(e) {
+          if (window.innerWidth <= 880) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropdownContent.style.display = 
+              dropdownContent.style.display === 'block' ? 'none' : 'block';
+          }
+          // On desktop, let the CSS hover handle it
+        });
+        
+        // Desktop hover functionality
+        dropdown.addEventListener('mouseenter', function() {
+          if (window.innerWidth > 880) {
+            dropdownContent.style.display = 'block';
+          }
+        });
+        
+        dropdown.addEventListener('mouseleave', function() {
+          if (window.innerWidth > 880) {
+            dropdownContent.style.display = 'none';
+          }
+        });
+        
+        // Close dropdown when clicking outside (mobile only)
+        document.addEventListener('click', function(e) {
+          if (window.innerWidth <= 880 && 
+              !dropdown.contains(e.target)) {
+            dropdownContent.style.display = 'none';
+          }
+        });
+      }
+    });
   </script>
 </body>
 </html>
