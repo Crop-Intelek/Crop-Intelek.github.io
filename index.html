@@ -7,11 +7,24 @@
   <meta name="google-site-verification" content="N5GyW9HHIAmbq5ZGIgYMBi_hMhUYAW9rPcvlFM3-FJg" />
 
   <title>CropIntelek – Agricultural Research & Field Trials South Africa</title>
-  <meta name="description" content="CropIntelek provides accurate agricultural research solutions including field trials, efficacy testing, and registration trials across South Africa." />
+  <meta name="description" content="CropIntelek (Pty) Ltd - Leading agricultural research company in South Africa. Expert field trials, efficacy testing, crop selectivity studies, and registration trials. EPPO compliant, ARM guidelines. Contact us for reliable agricultural research solutions." />
   <meta name="keywords" content="agricultural research, field trials, efficacy testing, crop protection, South Africa, registration trials, glasshouse trials, biostimulant, plant growth regulator" />
   <meta name="author" content="CropIntelek (Pty) Ltd" />
   <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="bingbot" content="index, follow" />
   <link rel="canonical" href="https://cropintelek.co.za/" />
+  
+  <!-- Additional SEO meta tags -->
+  <meta name="geo.region" content="ZA" />
+  <meta name="geo.placename" content="South Africa" />
+  <meta name="geo.position" content="-30.5595;22.9375" />
+  <meta name="ICBM" content="-30.5595, 22.9375" />
+  <meta name="DC.title" content="CropIntelek – Agricultural Research & Field Trials South Africa" />
+  <meta name="DC.description" content="Leading agricultural research company in South Africa specializing in field trials, efficacy testing, and registration trials." />
+  <meta name="DC.subject" content="Agricultural Research, Field Trials, Efficacy Testing, South Africa" />
+  <meta name="DC.language" content="en" />
+  <meta name="DC.coverage" content="South Africa" />
   
   <!-- Cache Control -->
   <meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable">
@@ -22,7 +35,7 @@
   <meta property="og:title" content="CropIntelek – Agricultural Research & Field Trials South Africa" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cropintelek.co.za/" />
-  <meta property="og:description" content="CropIntelek provides accurate agricultural research solutions including field trials, efficacy testing, and registration trials across South Africa." />
+  <meta property="og:description" content="CropIntelek (Pty) Ltd - Leading agricultural research company in South Africa. Expert field trials, efficacy testing, crop selectivity studies, and registration trials. EPPO compliant, ARM guidelines." />
   <meta property="og:image" content="https://cropintelek.co.za/assets/logo.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -31,7 +44,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="CropIntelek – Agricultural Research & Field Trials South Africa" />
-  <meta name="twitter:description" content="CropIntelek provides accurate agricultural research solutions including field trials, efficacy testing, and registration trials across South Africa." />
+  <meta name="twitter:description" content="CropIntelek (Pty) Ltd - Leading agricultural research company in South Africa. Expert field trials, efficacy testing, crop selectivity studies, and registration trials. EPPO compliant, ARM guidelines." />
   <meta name="twitter:image" content="https://cropintelek.co.za/assets/logo.webp" />
   <meta name="twitter:image:alt" content="CropIntelek Logo - Agricultural Research Company" />
   
@@ -221,6 +234,74 @@
         }
       }
     ]
+  }
+  </script>
+
+  <!-- Breadcrumb Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://cropintelek.co.za/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Services",
+        "item": "https://cropintelek.co.za/#services"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Contact",
+        "item": "https://cropintelek.co.za/#contact"
+      }
+    ]
+  }
+  </script>
+
+  <!-- Local Business Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "CropIntelek (Pty) Ltd",
+    "description": "Leading agricultural research company in South Africa specializing in field trials, efficacy testing, and registration trials.",
+    "url": "https://cropintelek.co.za",
+    "telephone": "+27768525972",
+    "email": "admin@cropintelek.co.za",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "ZA",
+      "addressRegion": "Gauteng & Cape"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "-30.5595",
+      "longitude": "22.9375"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "South Africa"
+    },
+    "serviceArea": {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": "-30.5595",
+        "longitude": "22.9375"
+      },
+      "geoRadius": "1000000"
+    },
+    "openingHours": "Mo-Fr 07:00-18:00",
+    "priceRange": "$$",
+    "paymentAccepted": "Cash, Credit Card, Bank Transfer",
+    "currenciesAccepted": "ZAR"
   }
   </script>
 
@@ -860,6 +941,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
+      align-items: start;
     }
     
     .faq-item {
@@ -1666,29 +1748,24 @@
 
     // FAQ Accordion functionality
     document.addEventListener('DOMContentLoaded', function() {
-      const faqQuestions = document.querySelectorAll('.faq-question');
+      const faqItems = document.querySelectorAll('.faq-item');
       
-      faqQuestions.forEach(question => {
-        question.addEventListener('click', function() {
-          const faqItem = this.parentElement;
-          const isActive = faqItem.classList.contains('active');
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
           
-          // Close all other FAQ items
-          faqQuestions.forEach(q => {
-            const item = q.parentElement;
-            if (item !== faqItem) {
-              item.classList.remove('active');
-              q.setAttribute('aria-expanded', 'false');
-            }
-          });
+          const isActive = item.classList.contains('active');
           
-          // Toggle current FAQ item
+          // Toggle only this specific FAQ item
           if (isActive) {
-            faqItem.classList.remove('active');
-            this.setAttribute('aria-expanded', 'false');
+            item.classList.remove('active');
+            question.setAttribute('aria-expanded', 'false');
           } else {
-            faqItem.classList.add('active');
-            this.setAttribute('aria-expanded', 'true');
+            item.classList.add('active');
+            question.setAttribute('aria-expanded', 'true');
           }
         });
         
