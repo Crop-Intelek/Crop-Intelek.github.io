@@ -1,0 +1,24 @@
+{
+  "name": "CropIntelek - Agricultural Research & Field Trials",
+  "short_name": "CropIntelek",
+  "description": "Leading agricultural research company in South Africa specializing in field trials, efficacy testing, and registration trials.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4caf6e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./assets/logo_sqr.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/logo_sqr.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
