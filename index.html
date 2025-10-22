@@ -332,6 +332,61 @@
   <!-- Web App Manifest -->
   <link rel="manifest" href="./manifest.json">
   
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID', {
+      page_title: 'CropIntelek - Agricultural Research & Field Trials',
+      page_location: window.location.href,
+      send_page_view: true
+    });
+  </script>
+  
+  <!-- Performance Monitoring -->
+  <script>
+    // Core Web Vitals monitoring
+    function sendToAnalytics(metric) {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', metric.name, {
+          event_category: 'Web Vitals',
+          event_label: metric.id,
+          value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+          non_interaction: true,
+        });
+      }
+    }
+    
+    // Monitor LCP, FID, CLS
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        if (entry.entryType === 'largest-contentful-paint') {
+          sendToAnalytics({name: 'LCP', value: entry.startTime, id: entry.id});
+        }
+      }
+    }).observe({entryTypes: ['largest-contentful-paint']});
+    
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        if (entry.entryType === 'first-input') {
+          sendToAnalytics({name: 'FID', value: entry.processingStart - entry.startTime, id: entry.id});
+        }
+      }
+    }).observe({entryTypes: ['first-input']});
+    
+    new PerformanceObserver((entryList) => {
+      let clsValue = 0;
+      for (const entry of entryList.getEntries()) {
+        if (!entry.hadRecentInput) {
+          clsValue += entry.value;
+        }
+      }
+      sendToAnalytics({name: 'CLS', value: clsValue, id: 'cls-' + Date.now()});
+    }).observe({entryTypes: ['layout-shift']});
+  </script>
+  
   <!-- Microsoft Tiles -->
   <meta name="msapplication-TileColor" content="#4caf6e">
   <meta name="msapplication-TileImage" content="./assets/logo_sqr.png">
@@ -344,10 +399,16 @@
   <link rel="dns-prefetch" href="//fonts.bunny.net">
   <link rel="dns-prefetch" href="//formspree.io">
   
-  <link rel="preload" href="./assets/trials/maize/image1_mobile.webp" as="image" type="image/webp" fetchpriority="high" media="(max-width: 768px)">
-  <link rel="preload" href="./assets/trials/maize/image1.webp" as="image" type="image/webp" fetchpriority="high" media="(min-width: 769px)">
+  <!-- Critical Resource Preloading -->
+  <link rel="preload" href="./assets/index/hero-img_mobile.webp" as="image" type="image/webp" fetchpriority="high" media="(max-width: 768px)">
+  <link rel="preload" href="./assets/index/hero-img.webp" as="image" type="image/webp" fetchpriority="high" media="(min-width: 769px)">
+  <link rel="preload" href="./assets/logo.webp" as="image" type="image/webp">
   <link rel="preload" href="https://fonts.bunny.net/css?family=inter:300,400,600,700|poppins:400,600,700" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.bunny.net/css?family=inter:300,400,600,700|poppins:400,600,700" rel="stylesheet"></noscript>
+  
+  <!-- DNS Prefetch for External Resources -->
+  <link rel="dns-prefetch" href="//fonts.bunny.net">
+  <link rel="dns-prefetch" href="//formspree.io">
 
   <style>
     /* Minified CSS - Optimized for performance */
@@ -456,23 +517,396 @@
     }
 
     /* Hero */
-    .hero { position: relative; padding: 90px 0; }
-    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 40px; align-items: center; }
+    .hero { position: relative; padding: 60px 0; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: start; }
     .hero h1 span { color:var(--brand); }
-    .lead { font-size: clamp(1rem, 1.5vw, 1.125rem); max-width: 60ch; }
+    .hero-subtitle { 
+      font-size: clamp(1.3rem, 2.2vw, 1.6rem); 
+      font-weight: 600; 
+      color: var(--brand-2); 
+      margin: 16px 0 24px 0;
+      line-height: 1.4;
+    }
+    .hero-description { 
+      margin-bottom: 32px; 
+    }
+    .hero-description p { 
+      font-size: clamp(0.95rem, 1.4vw, 1.1rem); 
+      line-height: 1.6; 
+      margin-bottom: 16px; 
+      color: var(--muted);
+      max-width: 65ch;
+    }
+    .hero-description p:last-child { 
+      margin-bottom: 0; 
+    }
+    .fw-cursive { font-style: italic; } .fw-bold { font-weight: bold; } .fs-3 { font-size: clamp(1.2rem, 2.5vw, 1.8rem); }
+    .why-cropintelek { 
+      margin: 24px 0; 
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .why-cropintelek h3 { 
+      font-size: clamp(1.1rem, 2vw, 1.3rem); 
+      margin-bottom: 12px; 
+      color: var(--brand);
+      grid-column: 1 / -1;
+    }
+    .why-cropintelek ul { 
+      list-style: none; 
+      padding: 0; 
+      margin: 0; 
+    }
+    .why-cropintelek li { 
+      padding: 6px 0; 
+      font-size: clamp(0.9rem, 1.4vw, 1rem); 
+      position: relative; 
+      padding-left: 20px; 
+    }
+    .why-cropintelek li:before { 
+      content: "✓"; 
+      position: absolute; 
+      left: 0; 
+      color: var(--brand); 
+      font-weight: bold; 
+    }
+    @media (max-width: 768px) {
+      .why-cropintelek {
+        grid-template-columns: 1fr;
+      }
+    }
     .cta-row { display:flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
     .ghost { border:2px solid var(--text); padding:10px 16px; border-radius:12px; font-weight:700; color:var(--text); }
     .ghost:hover { background: var(--text); color: white;}
-    .hero-img { border-radius: 22px; overflow:hidden;}
+    .hero-img { 
+      display: flex;
+      flex-direction: column;
+      margin-top: 40px;
+    }
+    .hero-img picture {
+      border-radius: 22px; 
+      overflow:hidden; 
+    }
     .hero-img img {
       width: 100%;
       height: auto;
       aspect-ratio: 372/279; /* Maintain original aspect ratio */
       object-fit: cover;
     }
+    
+    .trial-types-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    
+    .trial-type {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .trial-type::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--brand-2);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .trial-type:hover {
+      border-color: var(--brand-2);
+      box-shadow: 0 10px 25px -5px rgba(25, 135, 84, 0.2);
+      transform: translateY(-3px);
+    }
+    
+    .trial-type:hover::before {
+      transform: scaleY(1);
+    }
+    
+    .trial-type h4 {
+      color: var(--brand-2);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      margin-bottom: 10px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .trial-type h4::before {
+      content: "▶";
+      color: var(--brand-2);
+      font-size: 0.8em;
+      transition: transform 0.2s ease;
+    }
+    
+    .trial-type:hover h4::before {
+      transform: translateX(2px);
+    }
+    
+    .trial-type p {
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 6px;
+      font-size: clamp(0.85rem, 1.3vw, 0.95rem);
+    }
+    
+    .trial-type p:last-child {
+      margin-bottom: 0;
+    }
+    
+    @media (max-width: 768px) {
+      .trial-types-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .trial-types-section {
+        padding: 24px;
+      }
+    }
+
+    /* Services Content */
+    .services-content {
+      margin-bottom: 40px;
+    }
+    .services-content h3 {
+      margin-bottom: 20px;
+      margin-top: 0;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      color: var(--text);
+    }
+    .services-intro {
+      font-size: clamp(1rem, 1.4vw, 1.1rem);
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    
+    /* Service Cards */
+    .services-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 12px;
+    }
+    
+    .service-card {
+      background: white;
+      border: 1px solid rgba(76, 175, 110, 0.1);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(76, 175, 110, 0.15);
+      border-color: rgba(76, 175, 110, 0.2);
+    }
+    
+    .service-card:hover::before {
+      transform: scaleY(1);
+    }
+    
+    .service-content h4 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 16px 0;
+      font-family: Poppins, Inter, sans-serif;
+    }
+    
+    .service-content p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 12px 0;
+    }
+    
+    .service-content ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    
+    .service-content li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    
+    .service-content li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--brand);
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+    
+    .crop-categories {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    
+    .crop-category h5 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin: 0 0 8px 0;
+      font-family: Poppins, Inter, sans-serif;
+    }
+    
+    .crop-category ul {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    
+    .crop-category li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 6px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    
+    .crop-category li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--brand);
+      font-weight: bold;
+    }
+
+    /* What We Do Section */
+    .intro-text {
+      margin-bottom: 30px;
+    }
+    .intro-text p {
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      align-items: start;
+      margin-bottom: 30px;
+    }
+    
+    .services-images {
+      align-self: center;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .images-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    
+    .images-row img {
+      width: 100%;
+      height: 420px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    
+    .bottom-image {
+      width: 100%;
+      height: 380px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    
+    @media (max-width: 980px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+      .services-cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+      }
+      .service-card {
+        flex: 1;
+        min-width: 280px;
+        max-width: 350px;
+        padding: 20px;
+      }
+      .services-images {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+      }
+      .images-row {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .crop-categories {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .images-row img {
+        height: 300px;
+        max-width: 350px;
+        margin: 0 auto;
+      }
+      .bottom-image {
+        height: 280px;
+        max-width: 300px;
+        margin: 0 auto;
+      }
+      .services-images {
+        align-items: center;
+        gap: 16px;
+      }
+      .images-row {
+        justify-items: center;
+        gap: 16px;
+      }
+    }
 
     /* Section about */
-    section { padding: 80px 0; }
+    section { padding: 60px 0; }
     .section-head { display:flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 5px; }
     .cards { display:grid; grid-template-columns: repeat(12, 1fr); gap: 18px; stroke: var(--bg)}
     .card { grid-column: span 4; background: var(--brand); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow-soft); transition: transform .2s ease, box-shadow .2s ease; }
@@ -1399,6 +1833,7 @@
                  width="160" 
                  height="63" 
                  loading="eager"
+                 decoding="async"
                  style="width: 160px; height: auto; object-fit: contain;" />
           </picture>
         </a>
@@ -1428,9 +1863,28 @@
   <section id="home" class="hero">
     <div class="container hero-grid">
       <div>
-        <span class="pill">Research • Trials • Reporting</span>
-        <h1>Accurate Agricultural Research<br><span>Trusted results</span> for better decisions</h1>
-        <p class="lead">CropIntelek (Pty) Ltd provides timely, accurate and quality research solutions across South Africa — from field and glasshouse trials to thorough reporting and registration support.</p>
+        <span class="pill">Research • Trials • Data Analysis • Reporting</span>
+         <h1>Accurate Agricultural Research</h1> 
+         <h2 class="hero-subtitle">Trusted results for better decision-making in crop solutions</h2>
+         <div class="hero-description">
+           <p><span class="fw-bold">CropIntelek (Pty) Ltd</span> established in 2018, provides independent agricultural research and trial services across South Africa.</p>
+           <p>We deliver reliable results that support product development, regulatory submissions and commercial decision-making in crop production.</p>
+           <p>With up to 25 years of experience, our Research and Development teams conduct high-quality trials in a wide range of bioclimatic and geographical regions, working on row crops, fruit crops and ornamentals under diverse South African growing conditions.</p>
+         </div>
+        
+        <div class="why-cropintelek">
+          <h3>Why CropIntelek?</h3>
+          <ul>
+            <li>Independent and unbiased research</li>
+            <li>Multi-zone trial capability</li>
+            <li>Fast, accurate reporting</li>
+          </ul>
+          <ul>
+            <li>EPPO compliant / GEP regulated studies</li>
+            <li>Experienced agricultural research team</li>
+          </ul>
+        </div>
+        
         <div class="cta-row">
           <a class="cta" href="#services">Our Services</a>
           <a class="ghost" href="#contact">Get In Touch</a>
@@ -1438,15 +1892,27 @@
       </div>
       <div class="hero-img">
         <picture>
-          <source srcset="./assets/trials/maize/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
-          <source srcset="./assets/trials/maize/image1.webp" type="image/webp" media="(min-width: 769px)">
-          <img src="./assets/trials/maize/image1.webp" 
+          <source srcset="./assets/index/hero-img_mobile.webp" type="image/webp" media="(max-width: 768px)">
+          <source srcset="./assets/index/hero-img.webp" type="image/webp" media="(min-width: 769px)">
+          <img src="./assets/index/hero-img.webp" 
                alt="Maize field trials - CropIntelek agricultural research" 
-               width="372" 
-               height="279" 
+               width="472" 
+               height="472"
                loading="eager" 
                fetchpriority="high"
-               style="width: 100%; height: auto; max-width: 800px;"/>
+               decoding="async"
+               style="width: 100%; height: auto; max-width: 1000px;"/>
+        </picture>
+        <picture>
+          <source srcset="./assets/index/sunflower_mobile.webp" type="image/webp" media="(max-width: 768px)">
+          <source srcset="./assets/index/sunflower.webp" type="image/webp" media="(min-width: 769px)">
+          <img src="./assets/index/sunflower.webp" 
+               alt="Sunflower field research - CropIntelek agricultural trials" 
+               width="472" 
+               height="354"
+               loading="lazy"
+               decoding="async"
+               style="width: 100%; height: auto; max-width: 1000px; border-radius: 12px; margin-top: 16px;"/>
         </picture>
       </div>
     </div>
@@ -1464,89 +1930,31 @@
 
       <div class="about">
         <div class="about-text">
-            <p>CropIntelek delivers high‑quality agricultural research solutions. Our team of field investigators brings up to <strong>20 years' experience</strong> running trials in <strong>all major bio‑climatic zones </strong>of South Africa. We focus on thorough methodologies and clear, high‑quality reports.</p>
+            <p>CropIntelek is a team of agricultural research specialists committed to scientific excellence and innovation.</p>
             
-            <p>Our comprehensive approach to agricultural research involves everything from initial protocol development to final data analysis and regulatory reporting. We specialize in conducting precise field trials that provide actionable insights for crop protection products, biostimulants, and agricultural inputs across diverse South African growing conditions.</p>
+            <p>We work closely with local and international clients to design, execute and report trials that support product registration, positioning and commercial use.</p>
             
-            <p>With extensive experience in both commercial and registration trials, CropIntelek ensures that all studies meet international standards including <a class="underline" href="https://www.eppo.int/" target="_blank" rel="noopener noreferrer">EPPO (European and Mediterranean Plant Protection Organization)</a> protocols and ARM (Agricultural Research Manual) guidelines. Our expertise spans multiple crop categories including grains, fruits, vegetables, and specialty crops, allowing us to deliver comprehensive research solutions tailored to South Africa's unique agricultural landscape.</p>
+            <p><strong>Our mission:</strong><br>
+            To deliver high-quality scientific trials with accurate, on-time results, taking agricultural research and innovation to the next level.</p>
             
-            <p>We follow best practices established by leading agricultural research organizations including the <a class="underline" href="https://www.fao.org/" target="_blank" rel="noopener noreferrer">Food and Agriculture Organization (FAO)</a> and maintain compliance with South African regulatory requirements through the <a class="underline" href="https://www.gov.za/about-sa/agriculture" target="_blank" rel="noopener noreferrer">Department of Agriculture, Land Reform and Rural Development</a>.</p>
+            <p>Our research process includes protocol development, trial execution, data collection, statistical analysis and reporting using ARM software. All studies comply with <a class="underline" href="https://www.eppo.int/" target="_blank" rel="noopener noreferrer">EPPO guidelines</a> and GEP standards, and maintain compliance with South African regulatory requirements through the <a class="underline" href="https://www.gov.za/about-sa/agriculture" target="_blank" rel="noopener noreferrer">Department of Agriculture, Land Reform and Rural Development</a>.</p>
+            
+            <p class="fw-cursive">GLP accreditation pending.</p> 
         </div>
         <div class="about-right">
           <picture>
-            <source srcset="./assets/trials/row-crops/image23_mobile.webp" type="image/webp" media="(max-width: 768px)">
-            <source srcset="./assets/trials/row-crops/image23.webp" type="image/webp" media="(min-width: 769px)">
-            <img src="./assets/trials/row-crops/image23.webp" 
-                 alt="Row crops agricultural field research trials" 
+            <source srcset="./assets/index/about_mobile.webp" type="image/webp" media="(max-width: 768px)">
+            <source srcset="./assets/index/about.webp" type="image/webp" media="(min-width: 769px)">
+            <img src="./assets/index/about.webp" 
+                 alt="CropIntelek agricultural research team and facilities" 
                  width="370" 
                  height="266" 
                  loading="lazy"
+                 decoding="async"
                  style="width: 100%; height: auto; max-width: 800px;"/>
           </picture>
           
-          <!-- Tag sections below the image -->
-          <div class="about-tags">
-            <div class="tag-grid">
-              <div class="tag-item trial-types">
-                <h4>
-                  <div class="tag-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                      <path d="M12 20c4.418 0 8-3.582 8-8S16.418 4 12 4 4 7.582 4 12s3.582 8 8 8z"/>
-                      <path d="M12 8v4l3 3"/>
-                    </svg>
-                  </div>
-                  Trial Types
-                </h4>
-                <div class="tag-pills">
-                  <span class="pill">Field</span>
-                  <span class="pill">Glasshouse</span>
-                  <span class="pill">Tunnel</span>
-                  <span class="pill">Aerial</span>
-                </div>
-              </div>
-              
-              <div class="tag-item crops">
-                <h4>
-                  <div class="tag-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                      <path d="M2 17l10 5 10-5"/>
-                      <path d="M2 12l10 5 10-5"/>
-                    </svg>
-                  </div>
-                  Crops
-                </h4>
-                <div class="tag-pills">
-                  <span class="pill">Fruits</span>
-                  <span class="pill">Row crops</span>
-                  <span class="pill">Grains</span>
-                  <span class="pill">Vegetables</span>
-                  <span class="pill">Grasses</span>
-                </div>
-              </div>
-              
-              <div class="tag-item reports">
-                <h4>
-                  <div class="tag-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                      <polyline points="14,2 14,8 20,8"/>
-                      <line x1="16" y1="13" x2="8" y2="13"/>
-                      <line x1="16" y1="17" x2="8" y2="17"/>
-                      <polyline points="10,9 9,9 8,9"/>
-                    </svg>
-                  </div>
-                  Reports
-                </h4>
-                <div class="tag-pills">
-                  <span class="pill">ARM</span>
-                  <span class="pill">GEP</span>
-                  <span class="pill">EPPO Guidelines</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          
       </div>
     </div>
   </section>
@@ -1557,90 +1965,138 @@
     <div class="section-head">
       <div>
         <span class="pill">What we do</span>
-        <h2>Registration & Commercial Trials</h2>
+        <h2>Registration & Commercial Trials</h2><!-- add fotos 1-3, half links text, regs fotos, al drie displayed nie carrousel nie. -->
       </div>
       <a class="ghost" href="#contact">Request Proposal</a>
     </div>
-    
-    <p style="margin-bottom: 40px; font-size: 1.1rem; color: var(--muted);">We conduct comprehensive agricultural research trials across South Africa, providing reliable data for product registration and commercial development. Our services cover the full spectrum of agricultural research needs, from efficacy testing to crop selectivity studies, ensuring your products meet regulatory requirements and perform optimally in real-world conditions.</p>
-
-    <div class="cards">
-      <!-- Efficacy -->
-      <article class="card" aria-labelledby="s1">
-        <div class="icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <path d="M12 20c4.418 0 8-3.582 8-8S16.418 4 12 4 4 7.582 4 12s3.582 8 8 8z"/>
-            <path d="M12 8v4l3 3"/>
-          </svg>
-        </div>
-        <h3 id="s1">Efficacy</h3>
-        <p>End-to-end trials measuring the effectiveness of both biological and chemical crop protection products.</p>
-
-    </article>
-
-      <!-- Crop Selectivity -->
-      <article class="card" aria-labelledby="s2">
-        <div class="icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <path d="M3 21c0-4.97 4.03-9 9-9s9 4.03 9 9"/>
-            <path d="M12 12V3m0 0L8 7m4-4 4 4"/>
-          </svg>
-        </div>
-        <h3 id="s2">Crop Selectivity</h3>
-        <p>Testing how products perform across different crops to ensure safety and effectiveness.</p>
-      </article>
-
-      <!-- Bio-Stimulus -->
-      <article class="card" aria-labelledby="s3">
-        <div class="icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <path d="M12 20V10"/>
-            <path d="M6 20c0-5.5 6-10 6-10s6 4.5 6 10"/>
-          </svg>
-        </div>
-        <h3 id="s3">Bio-Stimulus</h3>
-        <p>Assessing products that enhance plant health, improve stress resilience, and stimulate growth.</p>
-      </article>
-
-      <!-- Plant Growth Regulator -->
-      <article class="card" aria-labelledby="s4">
-        <div class="icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <path d="M12 22V2"/>
-            <path d="M7 12h10"/>
-            <path d="M5 20h14"/>
-          </svg>
-        </div>
-        <h3 id="s4">Plant Growth Regulator</h3>
-        <p>Testing regulators to optimize development stages, control flowering & fruiting, and improve crop uniformity & productivity.</p>
-      </article>
-
-      <!-- Fertilizer -->
-      <article class="card" aria-labelledby="s5">
-        <div class="icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M12 7v5l3 3"/>
-          </svg>
-        </div>
-        <h3 id="s5">Fertilizer</h3>
-        <p>Conducting trials to determine fertilizer efficiency, impact on soil health, and overall crop performance.</p>
-      </article>
-
-      <!-- Adjuvants -->
-      <article class="card" aria-labelledby="s6">
-        <div class="icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none"  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <path d="M20 7H4"/>
-            <path d="M20 12H4"/>
-            <path d="M20 17H4"/>
-          </svg>
-        </div>
-        <h3 id="s6">Adjuvants</h3>
-        <p>Enhancing product delivery, improving formulation compatibility, and boosting effectiveness.</p>
-      </article>
+    <div class="intro-text">
+      <p>CropIntelek conducts comprehensive agricultural research trials across South Africa, providing reliable data for product registration and commercial development. Our services cover the full spectrum of agricultural research needs, from efficacy testing to crop selectivity studies, ensuring your products meet regulatory requirements and perform optimally in real-world conditions.</p>
+      
+      <p>Trials are conducted on experimental sites and commercial producer farms, depending on client needs. Our geographical regions include Mpumalanga, North-West, Limpopo, Free State and the Western Cape (additional zones on request).</p>
     </div>
-  </div>
+    
+    <div class="services-grid">
+      <div class="services-content">
+        <h3>Our Services</h3>
+        <p class="services-intro">We provide end-to-end agricultural trial services in Field, Tunnel, Glasshouse, and Aerial environments, including:</p>
+        
+        <div class="services-cards">
+          <div class="service-card">
+            <div class="service-content">
+              <h4>Trial Design & Execution</h4>
+              <ul>
+                <li>Trial design and protocol alignment</li>
+                <li>Trial establishment and execution</li>
+                <li>Scientific data collection & analysis (ARM Software)</li>
+                <li>Comprehensive reporting</li>
+                <li>Registration support and technical positioning</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-content">
+              <h4>Crops and Segments</h4>
+              <div class="crop-categories">
+                <div class="crop-category">
+                  <h5>Permanent Crops</h5>
+                  <ul>
+                    <li>Table and wine grapes</li>
+                    <li>Citrus, pome and stone fruit</li>
+                    <li>Ornamentals</li>
+                  </ul>
+                </div>
+                <div class="crop-category">
+                  <h5>Row and annual crops</h5>
+                  <ul>
+                    <li>Maize, potatoes, soybeans</li>
+                    <li>Sunflower, small grains, peanuts</li>
+                    <li>Vegetables</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="service-card">
+            <div class="service-content">
+              <h4>Trial Types</h4>
+              <p>We conduct Efficacy and Crop Selectivity research</p>
+              <ul>
+                <li>Fungicides, Herbicides, Insecticides, Nematicides</li>
+                <li>Biologicals & Inoculants</li>
+                <li>PGRs (Plant Growth Regulators)</li>
+                <li>Cultivar evaluations</li>
+                <li>Seed treatments</li>
+                <li>Group 3 fertiliser trials</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="services-images">
+        <div class="images-row">
+          <picture>
+            <source srcset="./assets/index/services/1.webp" type="image/webp">
+            <img src="./assets/index/services/1.webp" 
+                 alt="Agricultural field trials - CropIntelek research" 
+                 width="300" 
+                 height="200"
+                 loading="lazy"
+                 decoding="async" />
+          </picture>
+          <picture>
+            <source srcset="./assets/index/services/2.webp" type="image/webp">
+            <img src="./assets/index/services/2.webp" 
+                 alt="Crop research and analysis - CropIntelek" 
+                 width="300" 
+                 height="200"
+                 loading="lazy"
+                 decoding="async" />
+          </picture>
+        </div>
+        <picture>
+          <source srcset="./assets/index/services/3.webp" type="image/webp">
+          <img src="./assets/index/services/3.webp" 
+               alt="Agricultural trial management - CropIntelek" 
+               width="600" 
+               height="200"
+               loading="lazy"
+               decoding="async"
+               class="bottom-image" />
+        </picture>
+      </div>
+    </div>
+     
+      <div class="trial-types-grid">
+        <div class="trial-type">
+          <h4>Efficacy & Performance Trials</h4>
+          <p>End-to-end trials measuring how effectively biological and chemical crop protection products control target pests, weeds, and diseases.</p>
+          <p>These trials also include adjuvant evaluations to improve product uptake, delivery, and overall performance.</p>
+        </div>
+        
+        <div class="trial-type">
+          <h4>Crop Safety & Selectivity Trials</h4>
+          <p>Assessing product safety on different crops to ensure no adverse phytotoxic effects, while confirming crop tolerance under various growing conditions.</p>
+        </div>
+        
+        <div class="trial-type">
+          <h4>Biostimulant & Plant Health Trials</h4>
+          <p>Evaluating biostimulants in enhancing plant resilience, improving stress tolerance, stimulating growth, and supporting overall plant health.</p>
+        </div>
+        
+        <div class="trial-type">
+          <h4>Plant Growth Regulator (PGR) Trials</h4>
+          <p>Testing plant growth regulators to optimize key developmental stages, manage vegetative and reproductive growth, influence flowering and fruiting, and improve crop uniformity and yield potential.</p>
+        </div>
+        
+        <div class="trial-type">
+          <h4>Fertilizer Trials</h4>
+          <p>Nutrition trials to assess how fertilizer treatments support plant health, stimulate growth, and increase yield for optimal crop performance.</p>
+        </div>
+      </div>
+
 </section>
 
 
@@ -1666,6 +2122,7 @@
                    width="372" 
                    height="497" 
                    loading="lazy"
+                   decoding="async"
                    style="width: 100%; height: auto;"/>
             </picture>
           </figure>
@@ -1678,18 +2135,19 @@
         <article class="case">
           <figure>
             <picture>
-              <source srcset="./assets/trials/row-crops/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
-              <source srcset="./assets/trials/row-crops/image1.webp" type="image/webp" media="(min-width: 769px)">
-              <img src="./assets/trials/row-crops/image1.webp" 
-                   alt="Row Crops agricultural research trials" 
+              <source srcset="./assets/trials/bollworm-soybean/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+              <source srcset="./assets/trials/bollworm-soybean/image1.webp" type="image/webp" media="(min-width: 769px)">
+              <img src="./assets/trials/bollworm-soybean/image1.webp" 
+                   alt="Bollworm soybean agricultural research trials" 
                    width="372" 
                    height="279" 
                    loading="lazy"
+                   decoding="async"
                    style="width: 100%; height: auto;"/>
             </picture>
           </figure>
           <div class="body">
-            <h3>Row Crops</h3>
+            <h3>Bollworm Soybean</h3>
             <a class="tag" href="./gallery.html#row-crops">View Project -></a>
           </div>
         </article>
@@ -1707,7 +2165,7 @@
       </div>
     </div>
     
-    <p class="team-intro">Our team is highly experienced with over 20 years of combined expertise in agricultural research, field trials, and regulatory compliance across South Africa's diverse agricultural regions.</p>
+    <p class="team-intro">Our team is highly experienced with over 25 years of combined expertise in agricultural research, field trials, and regulatory compliance across South Africa's diverse agricultural regions. Alison Ackerman is our QA Manager and Coordinator</p>
 
     <div class="team">
 
@@ -1720,6 +2178,7 @@
             width="80"
             height="80"
             loading="lazy"
+            decoding="async"
             onerror="this.onerror=null;this.src='./assets/members/default-profile.webp';"
           />
         </div>
@@ -1729,20 +2188,21 @@
         </div>
       </article>
 
-      <!-- Gustav C Kriel -->
+      <!-- Gustav Kriel -->
       <article class="member">
         <div class="avatar" aria-hidden="true">
           <img 
             src="./assets/members/gustav.webp"
-            alt="Gustav C Kriel - Senior Principal Investigator"
+            alt="Gustav Kriel - Senior Principal Investigator"
             width="80"
             height="80"
             loading="lazy"
+            decoding="async"
             onerror="this.onerror=null;this.src='./assets/members/default-profile.webp';"
           />
         </div>
         <div class="member-info">
-          <h3>Gustav C Kriel</h3>
+          <h3>Gustav Kriel</h3>
           <div class="role">Senior Principal Investigator</div>
         </div>
       </article>
@@ -1756,6 +2216,7 @@
             width="80"
             height="80"
             loading="lazy"
+            decoding="async"
             onerror="this.onerror=null;this.src='./assets/members/default-profile.webp';"
           />
         </div>
@@ -1770,34 +2231,36 @@
         <div class="avatar" aria-hidden="true">
           <img 
             src="./assets/members/edwin.webp"
-            alt="Edwin M Phunyugu - Principal Investigator"
+            alt="Edwin Phunyugu - Trialist"
             width="80"
             height="80"
             loading="lazy"
+            decoding="async"
             onerror="this.onerror=null;this.src='./assets/members/default-profile.webp';"
           />
         </div>
         <div class="member-info">
-          <h3>Edwin M Phunyugu</h3>
-          <div class="role">Principal Investigator</div>
+          <h3>Edwin Phunyugu</h3>
+          <div class="role">Trialist</div>
         </div>
       </article>
 
-      <!-- Alison Ackerman -->
+      <!-- Emile Mpeka -->
       <article class="member">
         <div class="avatar" aria-hidden="true">
           <img 
-            src="./assets/members/default-profile.webp"
-            alt="Alison Ackerman - QA Manager & Coordinator"
+            src="./assets/members/emile.webp"
+            alt="Emile Mpeka - Trialist"
             width="80"
             height="80"
             loading="lazy"
+            decoding="async"
             onerror="this.onerror=null;this.src='./assets/members/default-profile.webp';"
           />
         </div>
         <div class="member-info">
-          <h3>Alison Ackerman</h3>
-          <div class="role">QA Manager & Coordinator</div>
+          <h3>Emile Mpeka</h3>
+          <div class="role">Trialist</div>
         </div>
       </article>
 
@@ -1823,7 +2286,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>CropIntelek conducts comprehensive agricultural research trials including efficacy testing, crop selectivity studies, biostimulant evaluations, plant growth regulator trials, fertilizer assessments, and adjuvant testing. We specialize in field trials, glasshouse studies, tunnel trials, and aerial applications across all major bio-climatic zones in South Africa.</p>
+            <p>CropIntelek conducts a wide range of agricultural research trials including efficacy testing, crop selectivity studies, biostimulant evaluations, plant growth assessments, fertilizer and adjuvant trials. We specialize in field trials, glasshouse studies, tunnel trials, and aerial applications across major bio-climatic zones in South Africa.</p>
           </div>
         </div>
 
@@ -1833,7 +2296,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>We test agricultural products across diverse crop categories including fruits, grains, row crops, vegetables, and grasses. Our expertise spans major South African crops such as maize, wheat, citrus, grapes, stone fruit, vegetables, and specialty crops. We adapt our trial protocols to meet the specific requirements of each crop type and growing region.</p>
+            <p>We work across multiple crop categories including fruit crops, row crops, grains, vegetables, and pasture or grass species. Our expertise covers key South African crops such as maize, soybeans, wheat, citrus, table and wine grapes, stone fruit, potatoes, and various vegetables. Trial protocols are tailored to each crop and its specific growing region to ensure accurate and meaningful results.</p>
           </div>
         </div>
 
@@ -1843,7 +2306,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>All our trials meet international standards including EPPO (European and Mediterranean Plant Protection Organization) protocols and ARM (Agricultural Research Manual) guidelines. We follow best practices established by the Food and Agriculture Organization (FAO) and maintain compliance with South African regulatory requirements through the Department of Agriculture, Land Reform and Rural Development.</p>
+            <p>All research is conducted in alignment with EPPO (European and Mediterranean Plant Protection Organization) guidelines and reported using ARM (Agricultural Research Manager) software, following GEP (Good Experimental Practice) principles. We also maintain compliance with South African regulatory requirements under the Department of Agriculture, Land Reform and Rural Development (DALRRD).</p>
           </div>
         </div>
 
@@ -1853,7 +2316,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Trial duration varies depending on crop type and research objectives. Annual crops like maize and wheat typically require 4-6 months, while perennial crops may need 12-24 months for comprehensive evaluation. We provide detailed timelines during project planning and maintain regular communication throughout the trial period to ensure timely delivery of results.</p>
+            <p>Trial duration varies depending on crop growth cycles and research objectives. We provide a project-specific timeline during planning, and maintain ongoing progress communication throughout the season to ensure on-time reporting and delivery.</p>
           </div>
         </div>
 
@@ -1863,7 +2326,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>CropIntelek operates across all major bio-climatic zones in South Africa, including Gauteng, Western Cape, Eastern Cape, KwaZulu-Natal, Free State, and other agricultural regions. Our network of field investigators and research sites allows us to conduct trials in diverse growing conditions, from coastal areas to highland regions, ensuring comprehensive product evaluation across different environmental conditions.</p>
+            <p>CropIntelek operates in all major agricultural and bio-climatic regions, including Gauteng, Limpopo, Mpumalanga, Free State and the Western Cape. Our network of investigators and trial sites allows us to test products under diverse environmental and climatic conditions.</p>
           </div>
         </div>
 
@@ -1873,7 +2336,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>We deliver comprehensive reports including ARM-compliant documentation, GEP (Good Experimental Practice) reports, and EPPO guideline-compliant submissions. Our reports feature detailed statistical analysis, high-quality photography, clear data presentation, and regulatory-ready documentation designed for maximum acceptance by agricultural authorities and regulatory bodies.</p>
+            <p>We deliver comprehensive scientific reports compiled in ARM and aligned with EPPO and GEP standards. Reports include statistical analysis, clear data presentation, treatment comparisons, tables, graphs, and expert interpretation, ensuring results are easy to use for regulatory submission or commercial decision-making.</p>
           </div>
         </div>
 
@@ -1883,7 +2346,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Yes, CropIntelek conducts both commercial efficacy trials and registration trials for regulatory submission. Our team has extensive experience in both areas, ensuring that commercial trials provide actionable insights for product development while registration trials meet all regulatory requirements for product approval in South Africa and international markets.</p>
+            <p>Yes. We conduct registration trials for regulatory submission as well as commercial trials that support product positioning, market development and technical decision-making. Our experience ensures registration trials meet compliance requirements, while commercial trials deliver practical insights for product launch and adoption.</p>
           </div>
         </div>
 
@@ -1893,7 +2356,7 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>Our team of field investigators brings up to 20 years of experience running agricultural trials across all major bio-climatic zones in South Africa. We combine extensive field experience with rigorous scientific methodology, ensuring that every trial delivers reliable, actionable data for product development and regulatory submission.</p>
+            <p>Our team brings up to 25 years of agricultural research experience, conducting trials across South Africa's major bio-climatic zones. We combine deep field knowledge with scientific discipline, ensuring reliable data for both product development and regulatory approval.</p>
           </div>
         </div>
 
@@ -1903,17 +2366,12 @@
             <span class="faq-icon">+</span>
           </button>
           <div class="faq-answer">
-            <p>We maintain strict quality control through standardized protocols, regular field monitoring, detailed record-keeping, and rigorous statistical analysis. Our trials follow GEP principles with proper randomization, replication, and statistical design. We use calibrated equipment, maintain detailed field logs, and conduct thorough data validation to ensure reliable, reproducible results.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
-            <span>Can you help with international regulatory submissions?</span>
-            <span class="faq-icon">+</span>
-          </button>
-          <div class="faq-answer">
-            <p>Yes, our trials are designed to meet international standards and can support submissions to various regulatory authorities. We follow EPPO guidelines and FAO best practices, making our data suitable for international regulatory submissions. We can also provide guidance on specific regulatory requirements for different target markets.</p>
+            <p>We follow a strict quality-assurance system that includes:</p>
+            <ul>
+              <li>GEP-aligned trial design, randomization and replication</li>
+              <li>Routine field monitoring and detailed record-keeping</li>
+              <li>Use of calibrated equipment and validated methods</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -2071,6 +2529,7 @@
                  width="160" 
                  height="63" 
                  loading="lazy"
+                 decoding="async"
                  style="width: 160px; height: auto; opacity: 0.95; object-fit: contain;"/>
           </picture>
           <p class="footer-description">Leading agricultural research company specializing in field trials, efficacy testing, and regulatory compliance across South Africa.</p>

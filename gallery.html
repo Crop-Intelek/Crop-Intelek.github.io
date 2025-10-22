@@ -64,7 +64,7 @@
       ]
     },
     "image": [
-      "https://cropintelek.co.za/assets/trials/row-crops/image1.jpg",
+      "https://cropintelek.co.za/assets/trials/bollworm-soybean/image1.jpg",
       "https://cropintelek.co.za/assets/trials/field-trials/image1.jpg",
       "https://cropintelek.co.za/assets/trials/maize/image1.jpg",
       "https://cropintelek.co.za/assets/trials/grapevines/image1.jpg"
@@ -73,6 +73,61 @@
   </script>
 
   <link rel="icon" href="./assets/logo_sqr.png" />
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID', {
+      page_title: 'CropIntelek Gallery - Agricultural Research Trials',
+      page_location: window.location.href,
+      send_page_view: true
+    });
+  </script>
+  
+  <!-- Performance Monitoring -->
+  <script>
+    // Core Web Vitals monitoring
+    function sendToAnalytics(metric) {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', metric.name, {
+          event_category: 'Web Vitals',
+          event_label: metric.id,
+          value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+          non_interaction: true,
+        });
+      }
+    }
+    
+    // Monitor LCP, FID, CLS
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        if (entry.entryType === 'largest-contentful-paint') {
+          sendToAnalytics({name: 'LCP', value: entry.startTime, id: entry.id});
+        }
+      }
+    }).observe({entryTypes: ['largest-contentful-paint']});
+    
+    new PerformanceObserver((entryList) => {
+      for (const entry of entryList.getEntries()) {
+        if (entry.entryType === 'first-input') {
+          sendToAnalytics({name: 'FID', value: entry.processingStart - entry.startTime, id: entry.id});
+        }
+      }
+    }).observe({entryTypes: ['first-input']});
+    
+    new PerformanceObserver((entryList) => {
+      let clsValue = 0;
+      for (const entry of entryList.getEntries()) {
+        if (!entry.hadRecentInput) {
+          clsValue += entry.value;
+        }
+      }
+      sendToAnalytics({name: 'CLS', value: clsValue, id: 'cls-' + Date.now()});
+    }).observe({entryTypes: ['layout-shift']});
+  </script>
 
   <!-- Performance optimizations -->
   <link rel="preconnect" href="https://fonts.bunny.net">
@@ -248,9 +303,166 @@
       margin-bottom: 20px;
     }
 
-     /* Footer */
-    footer { border-top: 2px solid var(--muted); padding: 32px 0; color: var(--bg); background-color: var(--muted); margin-top: 50px; text-align: center;}
-    .copy { margin-top: 10px; font-size: .9rem; color: var(--bg); }
+    /* Footer */
+    footer { 
+      background-color: var(--muted); 
+      color: var(--bg); 
+      margin-top: 50px; 
+      padding: 48px 0 24px;
+      border-top: 2px solid rgba(255,255,255,0.1);
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: 1.5fr 2fr;
+      gap: 48px;
+      margin-bottom: 32px;
+    }
+    
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    
+    .footer-brand img {
+      width: 160px;
+      height: auto;
+      opacity: 0.95;
+    }
+    
+    .footer-description {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 300px;
+    }
+    
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    
+    .footer-column h4 {
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 16px 0;
+      font-family: Poppins, Inter, sans-serif;
+    }
+    
+    .footer-column a {
+      display: block;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 4px 0;
+      transition: all 0.2s ease;
+    }
+    
+    .footer-column a:hover:not(.linkedin-icon) {
+      color: white;
+      transform: translateX(4px);
+    }
+    
+    .social-link {
+      display: flex !important;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0 !important;
+    }
+    
+    .social-link svg {
+      flex-shrink: 0;
+    }
+    
+    .linkedin-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .linkedin-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      transform: translateY(-2px) scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    .linkedin-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    
+    .copyright,
+    .developer-credit {
+      margin: 0;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+    }
+    
+    .developer-credit a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    
+    .developer-credit a:hover {
+      color: white;
+    }
+    
+    @media (max-width: 1024px) {
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      
+      .footer-links {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      footer {
+        padding: 32px 0 20px;
+      }
+      
+      .footer-content {
+        gap: 24px;
+        margin-bottom: 24px;
+      }
+      
+      .footer-links {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 12px;
+      }
+    }
     
     /* Mobile responsive improvements */
     @media (max-width: 768px) {
@@ -390,18 +602,19 @@
       </picture>
       <div class="gallery-title">False Tiger Moth – Grapes</div>
     </div>
-    <div id="biostimulant" class="gallery-item" onclick="openLightbox('biostimulant','Biostimulant')">
+    <div id="bollworm-soybean" class="gallery-item" onclick="openLightbox('bollworm-soybean','Bollworm Soybean')">
       <picture>
-        <source srcset="assets/trials/biostimulant/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
-        <source srcset="assets/trials/biostimulant/image1.webp" type="image/webp" media="(min-width: 769px)">
-        <source srcset="assets/trials/biostimulant/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
-        <img src="assets/trials/biostimulant/image1.jpg" 
-             alt="Biostimulant agricultural testing" 
+        <source srcset="assets/trials/bollworm-soybean/image1_mobile.webp" type="image/webp" media="(max-width: 768px)">
+        <source srcset="assets/trials/bollworm-soybean/image1.webp" type="image/webp" media="(min-width: 769px)">
+        <source srcset="assets/trials/bollworm-soybean/image1.jpg" type="image/jpeg" media="(min-width: 769px)">
+        <img src="assets/trials/bollworm-soybean/image1.jpg" 
+             alt="Bollworm soybean agricultural research trials" 
              width="400" 
              height="300" 
-             loading="lazy">
+             loading="lazy"
+             style="width: 100%; height: auto;">
       </picture>
-      <div class="gallery-title">Biostimulant</div>
+      <div class="gallery-title">Bollworm Soybean</div>
     </div>
     <div id="fall-armyworm" class="gallery-item" onclick="openLightbox('fall-armyworm','Fall Armyworm (FAW)')">
       <picture>
@@ -505,28 +718,63 @@
   </section>
 
   <!-- Lightbox Modal -->
-  <div id="lightbox" class="lightbox">
-    <span class="close">&times;</span>
-    <img id="lightbox-img" src="" alt="">
-    <div id="caption"></div>
-    <div class="nav left">&#10094;</div>
-    <div class="nav right">&#10095;</div>
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption" aria-hidden="true">
+    <span class="close" role="button" aria-label="Close lightbox" tabindex="0">&times;</span>
+    <img id="lightbox-img" src="" alt="" role="img">
+    <div id="caption" id="lightbox-caption"></div>
+    <div class="nav left" role="button" aria-label="Previous image" tabindex="0">&#10094;</div>
+    <div class="nav right" role="button" aria-label="Next image" tabindex="0">&#10095;</div>
   </div>
 
   <div class="container">
     <a class="cta" href="./index.html">← Back to Home</a>
   </div>
   
-    <!-- Footer -->
+  <!-- Footer -->
   <footer>
-    <div class="container foot-grid">
-      <div>
-        <img src="assets/logo.png" 
-             alt="CropIntelek logo" 
-             width="160" 
-             height="63" 
-             style="opacity:.95;" />
-        <p class="copy">© <span id="year"></span> CropIntelek (Pty) Ltd. All rights reserved.</p>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <picture>
+            <source srcset="./assets/logo.webp" type="image/webp">
+            <img src="./assets/logo.webp" 
+                 alt="CropIntelek logo" 
+                 width="160" 
+                 height="63" 
+                 loading="lazy"
+                 decoding="async"
+                 style="width: 160px; height: auto; opacity: 0.95; object-fit: contain;"/>
+          </picture>
+          <p class="footer-description">Leading agricultural research company specializing in field trials, efficacy testing, and regulatory compliance across South Africa.</p>
+        </div>
+        
+        <div class="footer-links">
+          <div class="footer-column">
+            <h4>Company</h4>
+            <a href="./index.html#about">About Us</a>
+            <a href="./index.html#team">Our Team</a>
+            <a href="./index.html#contact">Contact</a>
+          </div>
+          <div class="footer-column">
+            <h4>Services</h4>
+            <a href="./index.html#services">Our Services</a>
+            <a href="./index.html#projects">Our Projects</a>
+            <a href="./index.html#faq">FAQ</a>
+          </div>
+          <div class="footer-column">
+            <h4>Follow</h4>
+            <a href="https://www.linkedin.com/in/carla-korf-272a1824/?originalSubdomain=za" target="_blank" rel="noopener noreferrer" class="social-link linkedin-icon" aria-label="Connect on LinkedIn">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p class="copyright">© <span id="year"></span> CropIntelek (Pty) Ltd. All rights reserved.</p>
+        <p class="developer-credit">Created by <a href="https://thedevtrekker.github.io/Portfolio/" target="_blank" rel="noopener noreferrer">Derik Korf</a></p>
       </div>
     </div>
   </footer>
@@ -582,34 +830,28 @@
         "assets/trials/tree-crops/image3.jpg",
         "assets/trials/tree-crops/image4.jpg",
         "assets/trials/tree-crops/image5.jpg",
-        "assets/trials/tree-crops/image6.jpg"
+        "assets/trials/tree-crops/image6.jpg",
+        "assets/trials/tree-crops/image7.jpg"
       ],
       "downy-mildew": [
         "assets/trials/downy-mildew/image1.jpg",
         "assets/trials/downy-mildew/image2.jpg",
         "assets/trials/downy-mildew/image3.jpg",
-        "assets/trials/downy-mildew/image4.jpg",
-        "assets/trials/downy-mildew/image5.jpg",
-        "assets/trials/downy-mildew/image6.jpg"
+        "assets/trials/downy-mildew/image4.jpg"
       ],
       "false-tiger-moth-grapes": [
         "assets/trials/false-tiger-moth-grapes/image1.jpg",
-        "assets/trials/false-tiger-moth-grapes/image2.jpg",
-        "assets/trials/false-tiger-moth-grapes/image3.jpg"
+        "assets/trials/false-tiger-moth-grapes/image2.jpg"
       ],
-      "biostimulant": [
-        "assets/trials/biostimulant/image1.jpg",
-        "assets/trials/biostimulant/image2.jpg",
-        "assets/trials/biostimulant/image3.jpg",
-        "assets/trials/biostimulant/image4.jpg",
-        "assets/trials/biostimulant/image5.jpg",
-        "assets/trials/biostimulant/image6.jpg"
+      "bollworm-soybean": [
+        "assets/trials/bollworm-soybean/image1.jpg",
+        "assets/trials/bollworm-soybean/image2.jpg",
+        "assets/trials/bollworm-soybean/image3.jpg",
+        "assets/trials/bollworm-soybean/image4.jpg"
       ],
       "fall-armyworm": [
         "assets/trials/fall-armyworm/image1.jpg",
-        "assets/trials/fall-armyworm/image2.jpg",
-        "assets/trials/fall-armyworm/image3.jpg",
-        "assets/trials/fall-armyworm/image4.jpg"
+        "assets/trials/fall-armyworm/image2.jpg"
       ],
       "stone-fruit": [
         "assets/trials/stone-fruit/image1.jpg",
@@ -625,24 +867,16 @@
         "assets/trials/grapevines/image3.jpg",
         "assets/trials/grapevines/image4.jpg",
         "assets/trials/grapevines/image5.jpg",
-        "assets/trials/grapevines/image6.jpg",
-        "assets/trials/grapevines/image7.jpg",
-        "assets/trials/grapevines/image8.jpg",
-        "assets/trials/grapevines/image9.jpg"
+        "assets/trials/grapevines/image6.jpg"
       ],
       "insect-cage-study-maize": [
         "assets/trials/insect-cage-study-maize/image1.jpg",
         "assets/trials/insect-cage-study-maize/image2.jpg",
-        "assets/trials/insect-cage-study-maize/image3.jpg",
-        "assets/trials/insect-cage-study-maize/image4.jpg",
-        "assets/trials/insect-cage-study-maize/image5.jpg",
-        "assets/trials/insect-cage-study-maize/image6.jpg"
+        "assets/trials/insect-cage-study-maize/image3.jpg"
       ],
       "maize": [
         "assets/trials/maize/image1.jpg",
-        "assets/trials/maize/image2.jpg",
-        "assets/trials/maize/image3.jpg",
-        "assets/trials/maize/image4.jpg",
+        "assets/trials/maize/image2.jpg"
       ],
       "pollinations-maize": [
         "assets/trials/pollinations-maize/image1.jpg",
@@ -650,9 +884,7 @@
         "assets/trials/pollinations-maize/image3.jpg",
         "assets/trials/pollinations-maize/image4.jpg",
         "assets/trials/pollinations-maize/image5.jpg",
-        "assets/trials/pollinations-maize/image6.jpg",
-        "assets/trials/pollinations-maize/image7.jpg",
-        "assets/trials/pollinations-maize/image8.jpg"
+        "assets/trials/pollinations-maize/image6.jpg"
       ],
       "rust-wheat": [
         "assets/trials/rust-wheat/image1.jpg",
@@ -663,8 +895,7 @@
         "assets/trials/vegetables/image1.jpg",
         "assets/trials/vegetables/image2.jpg",
         "assets/trials/vegetables/image3.jpg",
-        "assets/trials/vegetables/image4.jpg",
-        "assets/trials/vegetables/image5.jpg"
+        "assets/trials/vegetables/image4.jpg"
       ]
     };
 
@@ -683,6 +914,7 @@
       if (currentSet.length > 0) {
         showImage(currentIndex);
         lightbox.style.display = "block";
+        lightbox.setAttribute('aria-hidden', 'false');
       }
     }
 
@@ -716,6 +948,7 @@
 
     document.querySelector(".lightbox .close").onclick = () => {
       lightbox.style.display = "none";
+      lightbox.setAttribute('aria-hidden', 'true');
     };
     document.querySelector(".lightbox .nav.left").onclick = () => {
       currentIndex = (currentIndex - 1 + currentSet.length) % currentSet.length;
@@ -725,6 +958,26 @@
       currentIndex = (currentIndex + 1) % currentSet.length;
       showImage(currentIndex);
     };
+    
+    // Keyboard navigation for accessibility
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.style.display === 'block') {
+        switch(e.key) {
+          case 'Escape':
+            lightbox.style.display = "none";
+            lightbox.setAttribute('aria-hidden', 'true');
+            break;
+          case 'ArrowLeft':
+            currentIndex = (currentIndex - 1 + currentSet.length) % currentSet.length;
+            showImage(currentIndex);
+            break;
+          case 'ArrowRight':
+            currentIndex = (currentIndex + 1) % currentSet.length;
+            showImage(currentIndex);
+            break;
+        }
+      }
+    });
 
     // Handle window resize to update lightbox images
     window.addEventListener("resize", () => {
