@@ -1,15 +1,39 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-ZA">
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="alternate" hreflang="en-ZA" href="https://cropintelek.co.za/gallery.html" />
+  <link rel="alternate" hreflang="en" href="https://cropintelek.co.za/gallery.html" />
+  <link rel="alternate" hreflang="x-default" href="https://cropintelek.co.za/gallery.html" />
+
+  <!-- Mobile & PWA Meta Tags -->
+  <meta name="theme-color" content="#1e412a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="format-detection" content="telephone=yes" />
 
   <title>CropIntelek Gallery | Agricultural Research Trials & Projects</title>
   <meta name="description" content="Explore CropIntelek's comprehensive gallery of agricultural research projects including field trials, efficacy testing, crop protection studies, and registration trials across South Africa." />
-  <meta name="keywords" content="agricultural research gallery, field trials photos, efficacy testing images, crop protection trials, South Africa agriculture, research projects" />
+  <meta name="keywords" content="agricultural research gallery, field trials photos, efficacy testing images, crop protection trials, South Africa agriculture, research projects, agricultural trials gallery, crop research images" />
   <meta name="author" content="CropIntelek (Pty) Ltd" />
   <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="bingbot" content="index, follow" />
+  <meta name="geo.region" content="ZA" />
+  <meta name="geo.placename" content="South Africa" />
+  <meta name="geo.position" content="-30.5595;22.9375" />
+  <meta name="ICBM" content="-30.5595, 22.9375" />
+  
+  <!-- Dublin Core Meta Tags -->
+  <meta name="DC.title" content="CropIntelek Gallery | Agricultural Research Trials & Projects" />
+  <meta name="DC.description" content="Comprehensive gallery of CropIntelek's agricultural research projects including field trials, efficacy testing, crop protection studies, and registration trials." />
+  <meta name="DC.subject" content="Agricultural Research, Field Trials Gallery, Efficacy Testing, South Africa" />
+  <meta name="DC.language" content="en" />
+  <meta name="DC.coverage" content="South Africa" />
+  
   <link rel="canonical" href="https://cropintelek.co.za/gallery.html" />
   
   <!-- Cache Control -->
@@ -22,16 +46,18 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cropintelek.co.za/gallery.html" />
   <meta property="og:description" content="Explore CropIntelek's comprehensive gallery of agricultural research projects including field trials, efficacy testing, crop protection studies, and registration trials across South Africa." />
-  <meta property="og:image" content="https://cropintelek.co.za/assets/logo.png" />
+  <meta property="og:image" content="https://cropintelek.co.za/assets/logo.webp" />
+  <meta property="og:image:secure_url" content="https://cropintelek.co.za/assets/logo.webp" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="CropIntelek Gallery - Agricultural Research Projects" />
+  <meta property="og:image:type" content="image/webp" />
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="CropIntelek Gallery | Agricultural Research Trials & Projects" />
   <meta name="twitter:description" content="Explore CropIntelek's comprehensive gallery of agricultural research projects including field trials, efficacy testing, crop protection studies, and registration trials across South Africa." />
-  <meta name="twitter:image" content="https://cropintelek.co.za/assets/logo.png" />
+  <meta name="twitter:image" content="https://cropintelek.co.za/assets/logo.webp" />
   <meta name="twitter:image:alt" content="CropIntelek Gallery - Agricultural Research Projects" />
 
   <!-- Structured Data JSON-LD -->
@@ -42,9 +68,18 @@
     "name": "CropIntelek Gallery",
     "description": "Comprehensive gallery of CropIntelek's agricultural research projects and field trials",
     "url": "https://cropintelek.co.za/gallery.html",
+    "inLanguage": "en-US",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "CropIntelek",
+      "url": "https://cropintelek.co.za/"
+    },
     "mainEntity": {
       "@type": "Organization",
-      "name": "CropIntelek (Pty) Ltd"
+      "name": "CropIntelek (Pty) Ltd",
+      "url": "https://cropintelek.co.za",
+      "logo": "https://cropintelek.co.za/assets/logo.webp",
+      "sameAs": "https://www.linkedin.com/in/carla-korf-272a1824/?originalSubdomain=za"
     },
     "breadcrumb": {
       "@type": "BreadcrumbList",
@@ -63,12 +98,47 @@
         }
       ]
     },
+    "about": [
+      {
+        "@type": "Thing",
+        "name": "Agricultural Field Trials"
+      },
+      {
+        "@type": "Thing",
+        "name": "Efficacy Testing"
+      },
+      {
+        "@type": "Thing",
+        "name": "Crop Protection Research"
+      },
+      {
+        "@type": "Thing",
+        "name": "Agricultural Research in South Africa"
+      }
+    ],
     "image": [
-      "https://cropintelek.co.za/assets/trials/bollworm-soybean/image1.jpg",
-      "https://cropintelek.co.za/assets/trials/field-trials/image1.jpg",
-      "https://cropintelek.co.za/assets/trials/maize/image1.jpg",
-      "https://cropintelek.co.za/assets/trials/grapevines/image1.jpg"
-    ]
+      {
+        "@type": "ImageObject",
+        "url": "https://cropintelek.co.za/assets/trials/field-trials/image1.webp",
+        "name": "Agricultural Field Trials"
+      },
+      {
+        "@type": "ImageObject",
+        "url": "https://cropintelek.co.za/assets/trials/row-crops/image1.webp",
+        "name": "Row Crops Research"
+      },
+      {
+        "@type": "ImageObject",
+        "url": "https://cropintelek.co.za/assets/trials/maize/image1.webp",
+        "name": "Maize Agricultural Trials"
+      },
+      {
+        "@type": "ImageObject",
+        "url": "https://cropintelek.co.za/assets/logo.webp",
+        "name": "CropIntelek Logo"
+      }
+    ],
+    "keywords": "agricultural research gallery, field trials photos, efficacy testing images, crop protection trials, South Africa agriculture"
   }
   </script>
 
